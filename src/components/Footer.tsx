@@ -68,12 +68,12 @@ export function Footer() {
                 alt="ITDor Services Logo"
                 width={1200}
                 height={400}
-                className="h-[320px] w-auto object-contain max-h-24"
+                className="h-auto w-auto max-h-10 object-contain"
               />
             </motion.a>
             <p className="text-muted text-sm leading-relaxed mb-6">
-              Professional IT consulting and support for businesses in Boston, MA,
-              NH & RI. Get reliable technology services that keep your business running.
+              Professional IT consulting and development for clients worldwide.
+              Delivered remotely—reliable technology services wherever you are.
             </p>
             
             {/* Contact Info */}
@@ -93,7 +93,7 @@ export function Footer() {
                 +1 (617) 712-9076
               </a>
               <a
-                href="https://www.linkedin.com/company/it-dor-services"
+                href="https://www.linkedin.com/company/itdorservices"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"

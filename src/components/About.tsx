@@ -19,9 +19,9 @@ const features = [
   },
   {
     icon: FileCheck,
-    title: "No Long-Term Contracts",
+    title: "Long-Term Contracts Preferred",
     description:
-      "Flexible engagement on your terms. We earn your business through results, not binding contracts.",
+      "We prefer long-term partnerships for consistent support and better outcomes. Committed engagement helps us deliver lasting value.",
   },
   {
     icon: Headphones,
@@ -35,7 +35,7 @@ const values = [
   "Free initial consultation",
   "Same-day response",
   "100% satisfaction guaranteed",
-  "Remote & on-site support",
+  "Remote delivery worldwide",
   "Transparent pricing",
   "No hidden fees",
 ];
@@ -63,10 +63,9 @@ export function About() {
               <span className="gradient-text">IT Success</span>
             </h2>
             <p className="text-lg text-muted mb-8 leading-relaxed">
-              IT Dor Services provides professional IT consulting and support
-              for businesses in Boston, MA, New Hampshire, and Rhode Island.
-              We bring the expertise of large IT firms with the personalized
-              attention of a dedicated consultant.
+              IT Dor Services provides professional IT consulting and development
+              to clients worldwide via remote delivery. We bring the expertise of
+              large IT firms with the personalized attention of a dedicated consultant.
             </p>
             <p className="text-muted mb-8 leading-relaxed">
               Whether you need network setup, cybersecurity protection, cloud

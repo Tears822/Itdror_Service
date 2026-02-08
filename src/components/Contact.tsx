@@ -69,8 +69,8 @@ export function Contact() {
             <div>
               <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
               <p className="text-muted mb-8">
-                Professional IT consulting and support for businesses in Boston, MA,
-                NH & RI. Get reliable technology services that keep your business running.
+                Professional IT consulting and development for clients worldwide.
+                We deliver remotely so your business gets reliable technology services wherever you are.
               </p>
             </div>
 
@@ -116,7 +116,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-muted">Service Area</div>
-                  <div className="font-medium">Boston, MA • NH • RI</div>
+                  <div className="font-medium">Worldwide (Remote)</div>
                 </div>
               </motion.div>
             </div>
@@ -126,7 +126,7 @@ export function Contact() {
               <div className="text-sm text-muted mb-4">Connect with us</div>
               <div className="flex gap-4">
                 <motion.a
-                  href="https://www.linkedin.com/company/it-dor-services"
+                  href="https://www.linkedin.com/company/itdorservices"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}

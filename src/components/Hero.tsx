@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const benefits = [
   "Fast Response Time",
   "Affordable Rates",
-  "No Long-Term Contracts",
+  "Long-Term Contracts Preferred",
 ];
 
 export function Hero() {
@@ -45,7 +45,7 @@ export function Hero() {
       {/* Subtle overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/70 pointer-events-none" style={{ zIndex: 1 }} />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center" style={{ zIndex: 10 }}>
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center pt-24 lg:pt-32" style={{ zIndex: 10 }}>
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ export function Hero() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
           <span className="text-sm text-muted">
-            Serving Boston, MA • New Hampshire • Rhode Island
+            Serving Clients Worldwide • Remote-First
           </span>
         </motion.div>
 
@@ -141,53 +141,7 @@ export function Hero() {
         >
           ✓ Free initial consultation • ✓ Same-day response • ✓ 100% satisfaction guaranteed
         </motion.p>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
-        >
-          {[
-            { value: "10+", label: "Years Experience" },
-            { value: "500+", label: "Clients Served" },
-            { value: "24/7", label: "Support Available" },
-            { value: "100%", label: "Satisfaction Rate" },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-accent mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.button
-        onClick={scrollToServices}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted hover:text-foreground transition-colors cursor-pointer"
-        style={{ zIndex: 10 }}
-      >
-        <span className="text-xs uppercase tracking-widest">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <ArrowDown className="w-5 h-5" />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }

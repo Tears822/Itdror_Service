@@ -164,7 +164,7 @@ export default function PrivacyPolicy() {
               <div className="mt-4 space-y-2 text-muted">
                 <p>Email: <a href="mailto:contact@itdorservices.com" className="text-accent hover:underline">contact@itdorservices.com</a></p>
                 <p>Phone: <a href="tel:+16177129076" className="text-accent hover:underline">+1 (617) 712-9076</a></p>
-                <p>Address: Boston, MA, New Hampshire & Rhode Island</p>
+                <p>Services delivered remotely worldwide. Contact: Boston, MA, USA.</p>
               </div>
             </section>
           </div>
