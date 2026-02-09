@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 export interface ServiceDetail {
   icon: LucideIcon;
@@ -22,6 +23,29 @@ interface ServiceDetailModalProps {
 }
 
 export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }: ServiceDetailModalProps) {
+  const modalWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Hide navbar when modal is open
+      document.body.classList.add('modal-open');
+      // Scroll to top when modal opens to ensure banner is visible
+      requestAnimationFrame(() => {
+        if (modalWrapperRef.current) {
+          modalWrapperRef.current.scrollTop = 0;
+        }
+      });
+    } else {
+      // Show navbar when modal is closed
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isOpen]);
+
   if (!service) return null;
 
   const IconComponent = service.icon;
@@ -42,36 +66,37 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100]"
             aria-hidden="true"
           />
           {/* Centering wrapper: flexbox centers the modal so Framer Motion transform doesn't break position */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+          <div ref={modalWrapperRef} className="fixed inset-0 z-[100] flex items-start justify-center p-4 pointer-events-none overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl max-h-[90vh] bg-background border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto"
+              className="w-full max-w-2xl bg-background border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto"
+              style={{ maxHeight: 'calc(100vh - 2rem)', marginTop: '1rem', marginBottom: '1rem' }}
               role="dialog"
               aria-modal="true"
               aria-labelledby="service-detail-title"
             >
             {/* Header with image */}
-            <div className="relative h-44 sm:h-52 shrink-0 overflow-hidden">
+            <div className="relative h-44 sm:h-52 shrink-0">
               <Image
                 src={service.image}
                 alt={service.title}
                 fill
-                className="object-cover"
+                className="object-cover rounded-t-2xl"
                 sizes="(max-width: 768px) 100vw, 672px"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = "none";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent rounded-t-2xl" />
               <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-xl bg-primary/30 backdrop-blur-sm flex items-center justify-center border border-accent/20">

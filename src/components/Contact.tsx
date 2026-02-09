@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin } from "lucide-react";
+import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin, AlertCircle, Loader2 } from "lucide-react";
 
 export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,15 +15,38 @@ export function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would send the form data to your backend
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setIsSubmitted(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
-    }, 3000);
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (
@@ -171,6 +196,16 @@ export function Contact() {
                 </motion.div>
               ) : (
                 <div className="space-y-6">
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center gap-3"
+                    >
+                      <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+                      <p className="text-sm text-red-400">{error}</p>
+                    </motion.div>
+                  )}
                   <div>
                     <label
                       htmlFor="name"
@@ -249,12 +284,22 @@ export function Contact() {
 
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full px-8 py-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all btn-glow flex items-center justify-center gap-2"
+                    disabled={isLoading}
+                    whileHover={!isLoading ? { scale: 1.02 } : {}}
+                    whileTap={!isLoading ? { scale: 0.98 } : {}}
+                    className="w-full px-8 py-4 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all btn-glow flex items-center justify-center gap-2"
                   >
-                    Get My Free Consultation
-                    <Send className="w-5 h-5" />
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Get My Free Consultation
+                        <Send className="w-5 h-5" />
+                      </>
+                    )}
                   </motion.button>
 
                   <p className="text-center text-sm text-muted">

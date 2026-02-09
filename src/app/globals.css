@@ -119,3 +119,8 @@ textarea:focus {
 .btn-glow:hover {
   box-shadow: 0 0 30px -5px rgba(45, 160, 255, 0.5);
 }
+
+/* Hide header when modal is open */
+body.modal-open header {
+  display: none !important;
+}

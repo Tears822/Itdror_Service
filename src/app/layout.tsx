@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   description: "Professional IT support, network setup, cybersecurity, cloud solutions, and software development delivered remotely to clients worldwide. Long-term contracts preferred.",
   keywords: ["IT consulting", "network setup", "cybersecurity", "cloud solutions", "IT support", "remote IT", "worldwide", "software development", "web development"],
   icons: {
-    icon: "/assets/logo.png",
-    shortcut: "/assets/logo.png",
-    apple: "/assets/logo.png",
+    icon: "/assets/favicon.png",
+    shortcut: "/assets/favicon.png",
+    apple: "/assets/favicon.png",
   },
   openGraph: {
     title: "IT Dor Services | IT Consulting & Development Worldwide",
