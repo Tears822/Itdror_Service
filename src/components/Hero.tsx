@@ -82,7 +82,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="max-w-3xl mx-auto text-lg md:text-xl text-muted mb-8"
         >
-          Professional IT support, network setup, cybersecurity, and cloud solutions.
+          Professional IT support, development, network setup, cybersecurity, and cloud solutions.
           Get reliable technology services that keep your business running smoothly.
         </motion.p>
 
@@ -120,7 +120,7 @@ export function Hero() {
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all btn-glow"
           >
-            Get Your Free IT Consultation
+            Get Your Free Consultation
           </motion.button>
           <motion.button
             onClick={scrollToServices}
@@ -128,7 +128,7 @@ export function Hero() {
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 glass text-foreground font-semibold rounded-lg transition-all hover:bg-white/5"
           >
-            View Our IT Services
+            View Our Services
           </motion.button>
         </motion.div>
 

@@ -140,7 +140,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                   onClick={scrollToContact}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all btn-glow"
                 >
-                  Get a quote for {service.title}
+                  Get a Quote for {service.title}
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
