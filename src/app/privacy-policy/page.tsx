@@ -162,7 +162,7 @@ export default function PrivacyPolicy() {
                 If you have any questions about this Privacy Policy, please contact us:
               </p>
               <div className="mt-4 space-y-2 text-muted">
-                <p>Email: <a href="mailto:contact@itdorservices.com" className="text-accent hover:underline">contact@itdorservices.com</a></p>
+                <p>Email: <a href="mailto:sales@itdorservices.com" className="text-accent hover:underline">sales@itdorservices.com</a></p>
                 <p>Phone: <a href="tel:+16177129076" className="text-accent hover:underline">+1 (617) 712-9076</a></p>
                 <p>Services delivered remotely worldwide. Contact: Boston, MA, USA.</p>
               </div>
