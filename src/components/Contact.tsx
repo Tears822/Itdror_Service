@@ -101,7 +101,7 @@ export function Contact() {
 
             <div className="space-y-6">
               <motion.a
-                href="mailto:contact@itdorservices.com"
+                href="mailto:sales@itdorservices.com"
                 whileHover={{ x: 5 }}
                 className="flex items-center gap-4 group"
               >
@@ -111,7 +111,7 @@ export function Contact() {
                 <div>
                   <div className="text-sm text-muted">Email</div>
                   <div className="font-medium group-hover:text-accent transition-colors">
-                    contact@itdorservices.com
+                    sales@itdorservices.com
                   </div>
                 </div>
               </motion.a>
