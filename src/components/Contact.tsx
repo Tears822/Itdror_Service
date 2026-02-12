@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin, AlertCircle, Loader2 } from "lucide-react";
+import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin, Youtube, Instagram, Twitter, AlertCircle, Loader2 } from "lucide-react";
 
 export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -149,7 +149,7 @@ export function Contact() {
             {/* Social Links */}
             <div className="pt-8 border-t border-white/10">
               <div className="text-sm text-muted mb-4">Connect with us</div>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-3">
                 <motion.a
                   href="https://www.linkedin.com/company/itdorservices"
                   target="_blank"
@@ -159,6 +159,36 @@ export function Contact() {
                 >
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
+                </motion.a>
+                <motion.a
+                  href="https://www.youtube.com/channel/UCxs816FBY3ma1bjTFqz2QXg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                >
+                  <Youtube className="w-4 h-4" />
+                  YouTube
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/itdorservices"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                >
+                  <Instagram className="w-4 h-4" />
+                  Instagram
+                </motion.a>
+                <motion.a
+                  href="https://x.com/itdorservices"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                >
+                  <Twitter className="w-4 h-4" />
+                  X
                 </motion.a>
               </div>
             </div>

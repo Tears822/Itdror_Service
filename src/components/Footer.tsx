@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, Phone, Linkedin } from "lucide-react";
+import { ArrowUp, Mail, Phone, Linkedin, Youtube, Instagram, Twitter } from "lucide-react";
 import Image from "next/image";
 
 const footerLinks = {
@@ -99,7 +99,34 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
-                Follow on LinkedIn
+                LinkedIn
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCxs816FBY3ma1bjTFqz2QXg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <Youtube className="w-4 h-4" />
+                YouTube
+              </a>
+              <a
+                href="https://www.instagram.com/itdorservices"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <Instagram className="w-4 h-4" />
+                Instagram
+              </a>
+              <a
+                href="https://x.com/itdorservices"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <Twitter className="w-4 h-4" />
+                X
               </a>
             </div>
           </div>

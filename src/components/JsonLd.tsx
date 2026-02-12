@@ -22,7 +22,12 @@ const organizationSchema = {
     addressRegion: "MA",
     addressCountry: "US",
   },
-  sameAs: [],
+  sameAs: [
+    "https://www.linkedin.com/company/itdorservices",
+    "https://www.youtube.com/channel/UCxs816FBY3ma1bjTFqz2QXg",
+    "https://www.instagram.com/itdorservices",
+    "https://x.com/itdorservices",
+  ],
 };
 
 const websiteSchema = {
