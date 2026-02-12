@@ -35,19 +35,24 @@ export function Header() {
 
   return (
     <>
+      {/* OUTER WRAPPER (centers navbar) */}
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={clsx(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-background/90 backdrop-blur-xl border-b border-white/10 shadow-lg"
-            : "bg-background/30 backdrop-blur-sm"
-        )}
+        className="fixed inset-x-0 top-6 z-50 flex justify-center px-4"
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+        {/* NARROW FLOATING NAVBAR */}
+        <div
+          className={clsx(
+            "w-full max-w-5xl rounded-2xl px-6 transition-all duration-300",
+            "border border-white/10 backdrop-blur-xl shadow-lg shadow-black/20",
+            isScrolled
+              ? "bg-background/80"
+              : "bg-background/40"
+          )}
+        >
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.a
               href="#home"
@@ -55,21 +60,21 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection("#home");
               }}
-              className="flex items-center gap-3 group"
               whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-3"
             >
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
-                width={150}
-                height={50}
-                className="h-auto w-auto max-h-10 object-contain"
+                width={140}
+                height={40}
+                className="object-contain"
                 priority
               />
             </motion.a>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-2">
               {navItems.map((item) => (
                 <a
                   key={item.label}
@@ -78,14 +83,18 @@ export function Header() {
                     e.preventDefault();
                     scrollToSection(item.href);
                   }}
-                  className="text-sm font-medium text-muted hover:text-foreground transition-colors line-hover"
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground
+                             hover:text-foreground
+                             hover:bg-white/5
+                             rounded-xl
+                             transition-all duration-200"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <div className="hidden md:block">
               <motion.a
                 href="#contact"
@@ -95,7 +104,8 @@ export function Header() {
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-2.5 bg-primary hover:bg-primary-hover text-white text-sm font-medium rounded-lg transition-all btn-glow"
+                className="px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-xl
+                           hover:bg-primary/90 transition-all"
               >
                 Get Started
               </motion.a>
@@ -117,11 +127,10 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-24"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-28"
           >
             <nav className="flex flex-col items-center gap-8 p-8">
               {navItems.map((item, index) => (
@@ -135,21 +144,19 @@ export function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-2xl font-medium text-foreground hover:text-primary"
                 >
                   {item.label}
                 </motion.a>
               ))}
+
               <motion.a
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection("#contact");
                 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="mt-4 px-8 py-3 bg-primary text-white text-lg font-medium rounded-lg"
+                className="mt-4 px-8 py-3 bg-primary text-white text-lg font-medium rounded-xl"
               >
                 Get Started
               </motion.a>
