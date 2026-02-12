@@ -26,7 +26,7 @@ const footerLinks = {
     { label: "Support & Maintenance", href: "#services" },
   ],
   company: [
-    { label: "Why Me", href: "#about" },
+    { label: "Why Choose Us", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Contact", href: "#contact" },
   ],
@@ -79,11 +79,11 @@ export function Footer() {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="mailto:contact@itdorservices.com"
+                href="mailto:sales@itdorservices.com"
                 className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                contact@itdorservices.com
+                sales@itdorservices.com
               </a>
               <a
                 href="tel:+16177129076"
