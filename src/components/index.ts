@@ -11,3 +11,4 @@ export { FloatingLines } from "./FloatingLines";
 export { VantaRings } from "./VantaRings";
 export { Insurance } from "./Insurance";
 export { PortfolioModal } from "./PortfolioModal";
+export { JsonLd } from "./JsonLd";

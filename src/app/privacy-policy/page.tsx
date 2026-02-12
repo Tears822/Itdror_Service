@@ -3,9 +3,22 @@ import { Header, Footer, OrbBackground, CursorEffect, FloatingLines } from "@/co
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+const baseUrl = "https://itdorservices.com";
+
 export const metadata: Metadata = {
-  title: "Privacy Policy | ITDor Services",
-  description: "Privacy Policy for ITDor Services - Learn how we collect, use, and protect your personal information.",
+  title: "Privacy Policy",
+  description:
+    "Privacy Policy for IT Dor Services. Learn how we collect, use, and protect your personal information when you use our IT consulting and development services.",
+  alternates: {
+    canonical: `${baseUrl}/privacy-policy`,
+  },
+  openGraph: {
+    title: "Privacy Policy | IT Dor Services",
+    description:
+      "Learn how IT Dor Services collects, uses, and protects your personal information.",
+    url: `${baseUrl}/privacy-policy`,
+    type: "website",
+  },
 };
 
 export default function PrivacyPolicy() {

@@ -3,9 +3,22 @@ import { Header, Footer, OrbBackground, CursorEffect, FloatingLines } from "@/co
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+const baseUrl = "https://itdorservices.com";
+
 export const metadata: Metadata = {
-  title: "Terms of Service | ITDor Services",
-  description: "Terms of Service for ITDor Services - Read our terms and conditions for using our IT consulting and development services.",
+  title: "Terms of Service",
+  description:
+    "Terms of Service for IT Dor Services. Read our terms and conditions for using our IT consulting, development, and technology services.",
+  alternates: {
+    canonical: `${baseUrl}/terms-of-service`,
+  },
+  openGraph: {
+    title: "Terms of Service | IT Dor Services",
+    description:
+      "Terms and conditions for using IT Dor Services' IT consulting and development services.",
+    url: `${baseUrl}/terms-of-service`,
+    type: "website",
+  },
 };
 
 export default function TermsOfService() {
