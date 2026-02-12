@@ -149,13 +149,13 @@ export function Contact() {
             {/* Social Links */}
             <div className="pt-8 border-t border-white/10">
               <div className="text-sm text-muted mb-4">Connect with us</div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 -mx-1">
                 <motion.a
                   href="https://www.linkedin.com/company/itdorservices"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors shrink-0"
                 >
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
@@ -165,7 +165,7 @@ export function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors shrink-0"
                 >
                   <Youtube className="w-4 h-4" />
                   YouTube
@@ -175,7 +175,7 @@ export function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors shrink-0"
                 >
                   <Instagram className="w-4 h-4" />
                   Instagram
@@ -185,7 +185,7 @@ export function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm transition-colors shrink-0"
                 >
                   <Twitter className="w-4 h-4" />
                   X
