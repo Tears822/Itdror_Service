@@ -190,24 +190,30 @@ export function Contact() {
                   <Twitter className="w-4 h-4" />
                   X
                 </motion.a>
-                <motion.a
-                  href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors shrink-0"
-                >
-                  <Star className="w-4 h-4" />
-                  Leave a review
-                </motion.a>
               </div>
             </div>
 
             {/* Trust Badge */}
             <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-accent/10 border border-white/10">
-              <p className="text-sm text-center">
-                ✓ 100% free consultation • ✓ No obligation • ✓ Response within 24 hours
-              </p>
+              <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 text-sm text-center">
+                <span>✓ 100% free consultation</span>
+                <span className="text-muted">•</span>
+                <span>✓ No obligation</span>
+                <span className="text-muted">•</span>
+                <span>✓ Response within 24 hours</span>
+              </div>
+              <div className="mt-3 flex justify-center">
+                <motion.a
+                  href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+                >
+                  <Star className="w-4 h-4" />
+                  Leave a review
+                </motion.a>
+              </div>
             </div>
           </motion.div>
 
