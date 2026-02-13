@@ -86,12 +86,12 @@ export function Hero() {
           Get reliable technology services that keep your business running smoothly.
         </motion.p>
 
-        {/* Benefits - stacked on mobile for cleaner look */}
+        {/* Benefits - aligned so text starts at same position */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10"
+          className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10 mx-auto w-fit"
         >
           {benefits.map((benefit, index) => (
             <motion.div
@@ -99,10 +99,12 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 min-w-0"
             >
-              <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-              <span className="text-sm sm:text-base">{benefit}</span>
+              <span className="w-6 h-6 flex shrink-0 items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              </span>
+              <span className="text-sm sm:text-base text-left">{benefit}</span>
             </motion.div>
           ))}
         </motion.div>
