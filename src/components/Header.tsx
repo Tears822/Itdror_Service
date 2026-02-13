@@ -68,7 +68,7 @@ export function Header() {
                 alt="ITDor Services Logo"
                 width={200}
                 height={56}
-                className="object-contain h-8 md:h-12 w-auto max-h-full"
+                className="object-contain h-10 md:h-12 w-auto max-h-full"
                 priority
               />
             </motion.a>
