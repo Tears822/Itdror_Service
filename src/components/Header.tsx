@@ -52,7 +52,7 @@ export function Header() {
               : "bg-background/40"
           )}
         >
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <motion.a
               href="#home"
@@ -66,9 +66,9 @@ export function Header() {
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
-                width={140}
-                height={40}
-                className="object-contain"
+                width={200}
+                height={56}
+                className="object-contain h-12 w-auto"
                 priority
               />
             </motion.a>
@@ -83,7 +83,7 @@ export function Header() {
                     e.preventDefault();
                     scrollToSection(item.href);
                   }}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground
+                  className="px-4 py-2.5 text-base font-medium text-muted-foreground
                              hover:text-foreground
                              hover:bg-white/5
                              rounded-xl
@@ -104,7 +104,7 @@ export function Header() {
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-xl
+                className="px-5 py-2.5 bg-primary text-white text-base font-medium rounded-xl
                            hover:bg-primary/90 transition-all"
               >
                 Get Started
