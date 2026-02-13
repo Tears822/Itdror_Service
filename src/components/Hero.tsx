@@ -45,7 +45,7 @@ export function Hero() {
       {/* Subtle overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/70 pointer-events-none" style={{ zIndex: 1 }} />
 
-     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
