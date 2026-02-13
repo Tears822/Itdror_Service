@@ -210,25 +210,6 @@ export function Contact() {
                 </motion.a>
               </div>
             </div>
-
-            {/* Trust Badge */}
-            <div className="p-5 rounded-xl bg-gradient-to-br from-green-500/10 to-accent/10 border border-white/10 space-y-4">
-              <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 text-sm text-center">
-                <span>✓ 100% free consultation</span>
-                <span className="text-muted">•</span>
-                <span>✓ No obligation</span>
-                <span className="text-muted">•</span>
-                <span>✓ Response within 24 hours</span>
-              </div>
-              <div className="text-center space-y-2 max-w-md mx-auto">
-                <p className="text-sm text-muted">
-                  Get in touch today—we&apos;re here to help. No commitment required; let&apos;s discuss your project and find the right solution for you.
-                </p>
-                <p className="text-sm text-muted">
-                  Whether you need ongoing IT support, a one-off development project, or advice on cybersecurity and cloud—we work remotely with clients worldwide and prefer long-term partnerships.
-                </p>
-              </div>
-            </div>
           </motion.div>
 
           {/* Contact Form */}
