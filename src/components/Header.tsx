@@ -40,19 +40,19 @@ export function Header() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed inset-x-0 top-6 z-50 flex justify-center px-4"
+        className="fixed inset-x-0 top-4 md:top-6 z-50 flex justify-center px-3 md:px-4"
       >
         {/* NARROW FLOATING NAVBAR */}
         <div
           className={clsx(
-            "w-full max-w-5xl rounded-2xl px-6 transition-all duration-300",
+            "w-full max-w-5xl rounded-xl md:rounded-2xl px-4 md:px-6 transition-all duration-300",
             "border border-white/10 backdrop-blur-xl shadow-lg shadow-black/20",
             isScrolled
               ? "bg-background/80"
               : "bg-background/40"
           )}
         >
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-14 md:h-20">
             {/* Logo */}
             <motion.a
               href="#home"
@@ -61,14 +61,14 @@ export function Header() {
                 scrollToSection("#home");
               }}
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-3"
+              className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0"
             >
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
                 width={200}
                 height={56}
-                className="object-contain h-12 w-auto"
+                className="object-contain h-8 md:h-12 w-auto max-h-full"
                 priority
               />
             </motion.a>
@@ -130,7 +130,7 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-28"
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-24"
           >
             <nav className="flex flex-col items-center gap-8 p-8">
               {navItems.map((item, index) => (
