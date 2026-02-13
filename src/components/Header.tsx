@@ -52,7 +52,7 @@ export function Header() {
               : "bg-background/40"
           )}
         >
-          <div className="flex items-center justify-between h-14 md:h-20">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
               href="#home"
@@ -68,7 +68,7 @@ export function Header() {
                 alt="ITDor Services Logo"
                 width={200}
                 height={56}
-                className="object-contain h-10 md:h-12 w-auto max-h-full"
+                className="object-contain h-12 w-auto max-h-full"
                 priority
               />
             </motion.a>
