@@ -144,6 +144,24 @@ export function Contact() {
                   <div className="font-medium">Worldwide (Remote)</div>
                 </div>
               </motion.div>
+
+              <motion.a
+                href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ x: 5 }}
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Star className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <div className="text-sm text-muted">Leave a review</div>
+                  <div className="font-medium group-hover:text-accent transition-colors">
+                    Share your experience on Google
+                  </div>
+                </div>
+              </motion.a>
             </div>
 
             {/* Social Links */}
@@ -194,7 +212,8 @@ export function Contact() {
             </div>
 
             {/* Trust Badge */}
-            <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-accent/10 border border-white/10">
+<div>
+            <div className="p-5 rounded-xl bg-gradient-to-br from-green-500/10 to-accent/10 border border-white/10">
               <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 text-sm text-center">
                 <span>✓ 100% free consultation</span>
                 <span className="text-muted">•</span>
@@ -202,18 +221,9 @@ export function Contact() {
                 <span className="text-muted">•</span>
                 <span>✓ Response within 24 hours</span>
               </div>
-              <div className="mt-3 flex justify-center">
-                <motion.a
-                  href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-                >
-                  <Star className="w-4 h-4" />
-                  Leave a review
-                </motion.a>
-              </div>
+              <p className="text-sm text-center text-muted mt-3 max-w-sm mx-auto">
+                Get in touch today—we're here to help. No commitment required; let's discuss your project and find the right solution for you.
+              </p>
             </div>
           </motion.div>
 
