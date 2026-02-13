@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin, Youtube, Instagram, Twitter, AlertCircle, Loader2 } from "lucide-react";
+import { Send, Mail, Phone, MapPin, CheckCircle, Linkedin, Youtube, Instagram, Twitter, Star, AlertCircle, Loader2 } from "lucide-react";
 
 export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -189,6 +189,16 @@ export function Contact() {
                 >
                   <Twitter className="w-4 h-4" />
                   X
+                </motion.a>
+                <motion.a
+                  href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors shrink-0"
+                >
+                  <Star className="w-4 h-4" />
+                  Leave a review
                 </motion.a>
               </div>
             </div>

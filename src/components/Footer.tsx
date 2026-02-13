@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, Phone, Linkedin, Youtube, Instagram, Twitter } from "lucide-react";
+import { ArrowUp, Mail, Phone, Linkedin, Youtube, Instagram, Twitter, Star } from "lucide-react";
 import Image from "next/image";
 
 const footerLinks = {
@@ -127,6 +127,15 @@ export function Footer() {
               >
                 <Twitter className="w-4 h-4" />
                 X
+              </a>
+              <a
+                href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <Star className="w-4 h-4" />
+                Leave a review
               </a>
             </div>
           </div>
