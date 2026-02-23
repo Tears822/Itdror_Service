@@ -34,7 +34,8 @@ export function Hero() {
           </video>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 pointer-events-none" style={{ zIndex: 1 }} />
+      {/* Stronger overlay on mobile for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/65 to-white/75 sm:from-white/60 sm:via-white/50 sm:to-white/60 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative max-w-content mx-auto px-6 sm:px-8 lg:px-12 text-center pt-28 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
         {/* Badge */}
@@ -48,7 +49,7 @@ export function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
-          <span className="text-xs sm:text-sm text-muted text-center">
+          <span className="text-xs sm:text-sm text-slate-600 sm:text-muted text-center">
             Serving Clients Worldwide • Remote-First
           </span>
         </motion.div>
@@ -58,7 +59,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-5 sm:mb-6 leading-tight"
+          className="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-5 sm:mb-6 leading-tight text-foreground drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]"
         >
           <span className="block">Software Development &</span>
           <span className="block mt-1 sm:mt-2 gradient-text">
@@ -71,7 +72,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-muted mb-8 sm:mb-10 px-1 leading-relaxed"
+          className="max-w-2xl mx-auto text-[0.9375rem] sm:text-lg md:text-xl text-slate-600 sm:text-muted mb-8 sm:mb-10 px-1 leading-relaxed"
         >
           We build your applications and support them after launch. One integrated team:
           custom software development plus dedicated application support when you need it.
@@ -95,7 +96,7 @@ export function Hero() {
               <span className="w-6 h-6 flex shrink-0 items-center justify-center">
                 <CheckCircle className="w-5 h-5 text-green-500" />
               </span>
-              <span className="text-sm sm:text-base text-left text-foreground">{benefit}</span>
+              <span className="text-sm sm:text-base text-left text-foreground font-medium sm:font-normal">{benefit}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -128,7 +129,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
-          className="mt-6 text-xs sm:text-sm text-muted px-2"
+          className="mt-6 text-xs sm:text-sm text-slate-600 sm:text-muted px-2"
         >
           ✓ Free initial consultation • ✓ Same-day response • ✓ 100% satisfaction guaranteed
         </motion.p>
