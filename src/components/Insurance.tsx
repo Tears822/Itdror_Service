@@ -7,22 +7,26 @@ const insuranceFeatures = [
   {
     icon: Shield,
     title: "General Liability Insurance",
-    description: "Protection against claims of bodily injury or property damage that may occur during service delivery.",
+    description:
+      "Protection against claims of bodily injury or property damage that may occur during service delivery. Covers third-party incidents so your business and clients are protected when we work on-site or with your systems.",
   },
   {
     icon: FileCheck,
     title: "Professional Liability Insurance",
-    description: "Errors and Omissions (E&O) coverage for professional services, protecting against claims of negligence or mistakes.",
+    description:
+      "Errors and Omissions (E&O) coverage for professional services, protecting against claims of negligence or mistakes. Essential for software and consulting work where advice or deliverables could be disputed.",
   },
   {
     icon: Building2,
     title: "Business Property Insurance",
-    description: "Coverage for business equipment, tools, and property used in IT consulting and development work.",
+    description:
+      "Coverage for business equipment, tools, and property used in IT consulting and development work. Ensures our gear and your assets are covered so projects can continue even if hardware is lost or damaged.",
   },
   {
     icon: Users,
     title: "Workers' Compensation",
-    description: "Required coverage for employees, providing benefits for work-related injuries or illnesses.",
+    description:
+      "Required coverage for employees, providing benefits for work-related injuries or illnesses. Keeps our team protected and meets legal and client requirements when we work with you.",
   },
 ];
 
@@ -41,13 +45,13 @@ export function Insurance() {
       {/* Semi-transparent background */}
       <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16 lg:mb-20">
           <span className="text-sm font-medium text-accent uppercase tracking-widest mb-4 block">
             Insurance Coverage
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Fully Insured{" "}
             <span className="gradient-text">IT Services</span>
           </h2>
@@ -57,7 +61,7 @@ export function Insurance() {
           </p>
         </div>
 
-        {/* Insurance Features Grid */}
+        {/* Insurance Features Grid – hover border reveal + scale (Card pattern) */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {insuranceFeatures.map((feature, index) => {
             const IconComponent = feature.icon;
@@ -68,17 +72,18 @@ export function Insurance() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent/30 transition-all duration-300 p-6 hover:-translate-y-2"
+                className="flex justify-center"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/30 backdrop-blur-sm flex items-center justify-center border border-accent/20 mb-4 group-hover:bg-accent/20 transition-colors">
-                  <IconComponent className="w-6 h-6 text-accent" />
+                <div className="insurance-card">
+                  <div className="insurance-card__border" aria-hidden />
+                  <div className="insurance-card__content">
+                    <div className="insurance-card__icon">
+                      <IconComponent aria-hidden />
+                    </div>
+                    <h3 className="insurance-card__title">{feature.title}</h3>
+                    <p className="insurance-card__desc">{feature.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {feature.description}
-                </p>
               </motion.div>
             );
           })}

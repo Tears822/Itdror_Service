@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        content: "1600px",
+      },
       colors: {
         background: "#001322",
         foreground: "#ffffff",

@@ -1,34 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, Phone, Linkedin, Youtube, Instagram, Twitter, Star } from "lucide-react";
+import Link from "next/link";
+import { ArrowUp, Mail, Phone } from "lucide-react";
 import Image from "next/image";
+import { SocialLinksCard } from "./SocialLinksCard";
 
 const footerLinks = {
-  itServices: [
-    { label: "Network Setup", href: "#services" },
-    { label: "Cybersecurity", href: "#services" },
-    { label: "Cloud Solutions", href: "#services" },
-    { label: "Device Repair", href: "#services" },
-    { label: "Server Management", href: "#services" },
-    { label: "IT Help Desk", href: "#services" },
-    { label: "Data Destruction", href: "#services" },
-    { label: "Technology Consulting", href: "#services" },
-  ],
+  applicationSupport: [{ label: "Application Support Specialist", href: "/services#application-support" }],
   devServices: [
-    { label: "Web Development", href: "#services" },
-    { label: "Mobile Development", href: "#services" },
-    { label: "UI/UX Design", href: "#services" },
-    { label: "AI Solutions", href: "#services" },
-    { label: "Cloud Services", href: "#services" },
-    { label: "DevOps & CI/CD", href: "#services" },
-    { label: "Digital Transformation", href: "#services" },
-    { label: "Support & Maintenance", href: "#services" },
+    { label: "Web Development", href: "/services#software-development" },
+    { label: "Mobile Development", href: "/services#software-development" },
+    { label: "UI/UX Design", href: "/services#software-development" },
+    { label: "AI Solutions", href: "/services#software-development" },
+    { label: "Cloud & DevOps", href: "/services#software-development" },
+    { label: "Digital Transformation", href: "/services#software-development" },
+    { label: "Support & Maintenance", href: "/services#software-development" },
   ],
   company: [
-    { label: "Why Choose Us", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Contact", href: "#contact" },
+    { label: "Why Choose Us", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
@@ -44,25 +37,17 @@ export function Footer() {
   return (
     <footer className="relative pt-16 pb-8 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-background/95" />
+      <div className="absolute inset-0 bg-background/70" />
       
       {/* Glow effect */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <motion.a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToTop();
-              }}
-              className="flex items-center gap-3 mb-6 group"
-              whileHover={{ scale: 1.02 }}
-            >
+            <Link href="/" className="flex items-center gap-3 mb-6 group">
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
@@ -70,10 +55,10 @@ export function Footer() {
                 height={400}
                 className="h-auto w-auto max-h-10 object-contain"
               />
-            </motion.a>
+            </Link>
             <p className="text-muted text-sm leading-relaxed mb-6">
-              Professional IT consulting and development for clients worldwide.
-              Delivered remotely—reliable technology services wherever you are.
+              Software development and application support in one team.
+              Delivered remotely—build and support wherever you are.
             </p>
             
             {/* Contact Info */}
@@ -92,91 +77,39 @@ export function Footer() {
                 <Phone className="w-4 h-4" />
                 +1 (617) 712-9076
               </a>
-              <a
-                href="https://www.linkedin.com/company/itdorservices"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn
-              </a>
-              <a
-                href="https://www.youtube.com/channel/UCxs816FBY3ma1bjTFqz2QXg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <Youtube className="w-4 h-4" />
-                YouTube
-              </a>
-              <a
-                href="https://www.instagram.com/itdorservices"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
-                Instagram
-              </a>
-              <a
-                href="https://x.com/itdorservices"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-                X
-              </a>
-              <a
-                href="https://g.page/r/CY_Ou-dFLdhWEAI/review"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <Star className="w-4 h-4" />
-                Leave a review
-              </a>
+              <SocialLinksCard layout="row" />
             </div>
           </div>
 
-          {/* IT Services Links */}
+          {/* Application Support */}
           <div>
-            <h4 className="font-semibold mb-4">IT Services</h4>
+            <h4 className="font-semibold mb-4">Application Support</h4>
             <ul className="space-y-3">
-              {footerLinks.itServices.map((link) => (
+              {footerLinks.applicationSupport.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
                     className="text-sm text-muted hover:text-foreground transition-colors line-hover"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Development Services Links */}
+          {/* Software Development */}
           <div>
-            <h4 className="font-semibold mb-4">Development</h4>
+            <h4 className="font-semibold mb-4">Software Development</h4>
             <ul className="space-y-3">
               {footerLinks.devServices.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
                     className="text-sm text-muted hover:text-foreground transition-colors line-hover"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -188,16 +121,12 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
                     className="text-sm text-muted hover:text-foreground transition-colors line-hover"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -209,12 +138,12 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-muted hover:text-foreground transition-colors line-hover"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

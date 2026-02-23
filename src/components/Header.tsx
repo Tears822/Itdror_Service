@@ -4,18 +4,23 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { RidgeButton } from "./RidgeButton";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,42 +30,24 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsMobileMenuOpen(false);
-  };
-
   return (
     <>
-      {/* OUTER WRAPPER (centers navbar) */}
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed inset-x-0 top-4 md:top-6 z-50 flex justify-center px-3 md:px-4"
+        className="fixed inset-x-0 top-4 md:top-6 z-50 flex justify-center px-3 md:px-6"
       >
-        {/* NARROW FLOATING NAVBAR */}
         <div
           className={clsx(
-            "w-full max-w-5xl rounded-xl md:rounded-2xl px-4 md:px-6 transition-all duration-300",
+            "w-full max-w-4xl rounded-xl md:rounded-2xl px-4 md:px-8 transition-all duration-300",
             "border border-white/10 backdrop-blur-xl shadow-lg shadow-black/20",
-            isScrolled
-              ? "bg-background/80"
-              : "bg-background/40"
+            isScrolled ? "bg-background/80" : "bg-background/40"
           )}
         >
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <motion.a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("#home");
-              }}
-              whileHover={{ scale: 1.02 }}
+            <Link
+              href="/"
               className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0"
             >
               <Image
@@ -71,47 +58,29 @@ export function Header() {
                 className="object-contain h-12 w-auto max-h-full"
                 priority
               />
-            </motion.a>
+            </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.href);
-                  }}
-                  className="px-4 py-2.5 text-base font-medium text-muted-foreground
-                             hover:text-foreground
-                             hover:bg-white/5
-                             rounded-xl
-                             transition-all duration-200"
+                  className={clsx(
+                    "px-5 py-3 text-base font-semibold rounded-xl transition-all duration-200",
+                    (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)))
+                      ? "text-accent underline underline-offset-4 decoration-2 decoration-accent"
+                      : "text-muted hover:text-foreground hover:underline hover:underline-offset-4 hover:decoration-2 hover:decoration-accent"
+                  )}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
-            {/* CTA */}
             <div className="hidden md:block">
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("#contact");
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-5 py-2.5 bg-primary text-white text-base font-medium rounded-xl
-                           hover:bg-primary/90 transition-all"
-              >
-                Get Started
-              </motion.a>
+              <RidgeButton href="/contact">Get Started</RidgeButton>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-foreground"
@@ -123,7 +92,6 @@ export function Header() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -132,34 +100,31 @@ export function Header() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-24"
           >
-            <nav className="flex flex-col items-center gap-8 p-8">
+            <nav className="flex flex-col items-center gap-6 p-8">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.label}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.href);
-                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-2xl font-medium text-foreground hover:text-primary"
                 >
-                  {item.label}
-                </motion.a>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={clsx(
+                      "text-2xl font-semibold block py-2",
+                      (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)))
+                        ? "text-accent underline underline-offset-4 decoration-2 decoration-accent"
+                        : "text-foreground hover:text-primary hover:underline hover:underline-offset-4 hover:decoration-2 hover:decoration-accent"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
-
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("#contact");
-                }}
-                className="mt-4 px-8 py-3 bg-primary text-white text-lg font-medium rounded-xl"
-              >
-                Get Started
-              </motion.a>
+              <div className="mt-8" onClick={() => setIsMobileMenuOpen(false)}>
+                <RidgeButton href="/contact">Get Started</RidgeButton>
+              </div>
             </nav>
           </motion.div>
         )}

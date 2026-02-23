@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { JsonLd } from "@/components";
+import { JsonLd, LenisProvider, ScrollToTop, ChatProviderWithWidget } from "@/components";
+import { QuoteIntentProvider } from "@/contexts/QuoteIntentContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,21 +16,18 @@ const siteUrl = "https://itdorservices.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "IT Dor Services | IT Consulting & Development Worldwide",
+    default: "IT Dor Services | Software Development & Application Support",
     template: "%s | IT Dor Services",
   },
   description:
-    "Professional IT support, network setup, cybersecurity, cloud solutions, and software development delivered remotely to clients worldwide. Long-term contracts preferred.",
+    "Custom software development and application support in one team. We build your applications and support them after launch—troubleshooting, user training, and clear client–dev communication. Remote delivery worldwide.",
   keywords: [
-    "IT consulting",
-    "network setup",
-    "cybersecurity",
-    "cloud solutions",
-    "IT support",
-    "remote IT",
-    "worldwide",
+    "application support",
     "software development",
     "web development",
+    "application support specialist",
+    "IT support",
+    "remote development",
     "Boston IT services",
   ],
   authors: [{ name: "IT Dor Services", url: siteUrl }],
@@ -53,23 +51,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "IT Dor Services",
-    title: "IT Dor Services | IT Consulting & Development Worldwide",
+    title: "IT Dor Services | Software Development & Application Support",
     description:
-      "Professional IT support and development delivered remotely worldwide. Fast response time, affordable rates, long-term contracts preferred.",
+      "Software development and application support in one team. Build and support your applications with 1 month free support after launch.",
     images: [
       {
         url: "/assets/logo.png",
         width: 1200,
         height: 400,
-        alt: "IT Dor Services - IT Consulting & Development",
+        alt: "IT Dor Services - Software Development & Application Support",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "IT Dor Services | IT Consulting & Development Worldwide",
+    title: "IT Dor Services | Software Development & Application Support",
     description:
-      "Professional IT support and development delivered remotely worldwide.",
+      "Software development and application support in one team. Remote delivery worldwide.",
     images: ["/assets/logo.png"],
   },
   alternates: {
@@ -89,7 +87,12 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased bg-background text-foreground`}
       >
         <JsonLd />
-        {children}
+        <ScrollToTop />
+        <ChatProviderWithWidget>
+          <LenisProvider>
+          <QuoteIntentProvider>{children}</QuoteIntentProvider>
+        </LenisProvider>
+        </ChatProviderWithWidget>
       </body>
     </html>
   );

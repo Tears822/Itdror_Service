@@ -1,10 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getPortfolioSlidesForService } from "@/data/portfolio";
+import { useQuoteIntent } from "@/contexts/QuoteIntentContext";
 
 export interface ServiceDetail {
   icon: LucideIcon;
@@ -12,7 +14,8 @@ export interface ServiceDetail {
   description: string;
   features: string[];
   image: string;
-  category?: "it" | "dev";
+  category?: "it" | "dev" | "support";
+  serviceId?: string;
 }
 
 interface ServiceDetailModalProps {
@@ -22,27 +25,47 @@ interface ServiceDetailModalProps {
   onContactClick?: () => void;
 }
 
+const CAROUSEL_INTERVAL_MS = 5000;
+const CAROUSEL_TRANSITION_MS = 600;
+
 export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }: ServiceDetailModalProps) {
   const modalWrapperRef = useRef<HTMLDivElement>(null);
+  const { setQuoteForService } = useQuoteIntent();
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [carouselDirection, setCarouselDirection] = useState<"next" | "prev">("next");
+
+  const portfolioSlides = service ? getPortfolioSlidesForService(service.serviceId) : [];
+  const slideCount = portfolioSlides.length;
+  const safeCarouselIndex = slideCount > 0 ? ((carouselIndex % slideCount) + slideCount) % slideCount : 0;
+  const currentSlide = portfolioSlides[safeCarouselIndex];
+
+  useEffect(() => {
+    if (isOpen) setCarouselIndex(0);
+  }, [isOpen, service?.serviceId]);
+
+  useEffect(() => {
+    if (!isOpen || slideCount <= 1) return;
+    const interval = setInterval(() => {
+      setCarouselDirection("next");
+      setCarouselIndex((i) => i + 1);
+    }, CAROUSEL_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [isOpen, slideCount]);
 
   useEffect(() => {
     if (isOpen) {
-      // Hide navbar when modal is open
-      document.body.classList.add('modal-open');
-      // Scroll to top when modal opens to ensure banner is visible
+      document.documentElement.classList.add("modal-open");
+      document.body.classList.add("modal-open");
       requestAnimationFrame(() => {
-        if (modalWrapperRef.current) {
-          modalWrapperRef.current.scrollTop = 0;
-        }
+        modalWrapperRef.current?.scrollTo(0, 0);
       });
     } else {
-      // Show navbar when modal is closed
-      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
     }
-    
-    // Cleanup on unmount
     return () => {
-      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
     };
   }, [isOpen]);
 
@@ -50,11 +73,22 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
 
   const IconComponent = service.icon;
 
+  const goPrev = () => {
+    setCarouselDirection("prev");
+    setCarouselIndex((i) => i - 1);
+  };
+  const goNext = () => {
+    setCarouselDirection("next");
+    setCarouselIndex((i) => i + 1);
+  };
+
   const scrollToContact = () => {
+    if (service) setQuoteForService(service.title);
     onClose();
     onContactClick?.();
-    const el = document.querySelector("#contact");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    requestAnimationFrame(() => {
+      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+    });
   };
 
   return (
@@ -65,86 +99,213 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100]"
-            aria-hidden="true"
+            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md"
+            aria-hidden
+            data-lenis-prevent
+            onWheel={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onTouchMove={(e) => { e.preventDefault(); e.stopPropagation(); }}
           />
-          {/* Centering wrapper: flexbox centers the modal so Framer Motion transform doesn't break position */}
-          <div ref={modalWrapperRef} className="fixed inset-0 z-[100] flex items-start justify-center p-4 pointer-events-none overflow-y-auto">
+          <div
+            ref={modalWrapperRef}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none overflow-y-auto"
+            data-lenis-prevent
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ type: "spring", damping: 28, stiffness: 320 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl bg-background border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto"
-              style={{ maxHeight: 'calc(100vh - 2rem)', marginTop: '1rem', marginBottom: '1rem' }}
+              className="w-full max-w-2xl pointer-events-auto my-auto rounded-3xl overflow-hidden flex flex-col"
+              style={{
+                maxHeight: "calc(100vh - 2rem)",
+                boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 80px -20px rgba(45,160,255,0.15)",
+                background: "linear-gradient(165deg, rgba(0,26,46,0.97) 0%, rgba(0,19,34,0.98) 50%, rgba(0,22,40,0.97) 100%)",
+              }}
               role="dialog"
               aria-modal="true"
               aria-labelledby="service-detail-title"
             >
-            {/* Header with image */}
-            <div className="relative h-44 sm:h-52 shrink-0">
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                className="object-cover rounded-t-2xl"
-                sizes="(max-width: 768px) 100vw, 672px"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent rounded-t-2xl" />
-              <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-xl bg-primary/30 backdrop-blur-sm flex items-center justify-center border border-accent/20">
-                    <IconComponent className="w-7 h-7 text-accent" />
+              {/* Header */}
+              <div className="relative h-48 sm:h-56 shrink-0 overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 672px"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: "linear-gradient(180deg, transparent 0%, rgba(0,19,34,0.4) 40%, rgba(0,19,34,0.95) 100%)",
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+                <div className="absolute bottom-5 left-6 right-6 flex items-end justify-between gap-4">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
+                      <IconComponent className="w-7 h-7 text-accent" />
+                    </div>
+                    <h2 id="service-detail-title" className="text-2xl sm:text-3xl font-bold text-white truncate drop-shadow-md">
+                      {service.title}
+                    </h2>
                   </div>
-                  <h2 id="service-detail-title" className="text-2xl font-bold text-white drop-shadow-lg">
-                    {service.title}
-                  </h2>
+                  <button
+                    onClick={onClose}
+                    className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white transition-all shrink-0"
+                    aria-label="Close"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  onClick={onClose}
-                  className="p-2 rounded-lg bg-black/40 hover:bg-black/60 transition-colors"
-                  aria-label="Close"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div>
-                <h3 className="text-sm font-medium text-accent uppercase tracking-widest mb-2">About this service</h3>
-                <p className="text-muted leading-relaxed">{service.description}</p>
               </div>
 
-              <div>
-                <h3 className="text-sm font-medium text-accent uppercase tracking-widest mb-3">What we offer</h3>
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-foreground">
-                      <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {/* Content - min-h-0 so flex child can shrink and scroll */}
+              <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-6 sm:p-8 space-y-8">
+                <section>
+                  <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-3">About this service</p>
+                  <p className="text-muted leading-relaxed text-[15px]">{service.description}</p>
+                </section>
 
-              <div className="pt-4 border-t border-white/10">
-                <button
-                  onClick={scrollToContact}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all btn-glow"
-                >
-                  Get a Quote for {service.title}
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+                <section>
+                  <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-4">What we offer</p>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, i) => (
+                      <li key={feature} className="flex items-start gap-3 group">
+                        <span
+                          className="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0 ring-4 ring-accent/20 group-hover:ring-accent/30 transition-all"
+                          aria-hidden
+                        />
+                        <span className="text-foreground text-[15px] leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                {portfolioSlides.length > 0 && currentSlide && (
+                  <section>
+                    <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-4">Portfolio</p>
+                    <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/30 shadow-xl">
+                      <div className="relative aspect-video bg-black/40">
+                        <AnimatePresence initial={false} mode="wait" custom={carouselDirection}>
+                          <motion.div
+                            key={safeCarouselIndex}
+                            custom={carouselDirection}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            variants={{
+                              hidden: (dir: "next" | "prev") => ({ x: dir === "next" ? "100%" : "-100%", opacity: 0.7 }),
+                              visible: { x: 0, opacity: 1 },
+                              exit: (dir: "next" | "prev") => ({ x: dir === "next" ? "-100%" : "100%", opacity: 0.7 }),
+                            }}
+                            transition={{ duration: CAROUSEL_TRANSITION_MS / 1000, ease: [0.32, 0.72, 0, 1] }}
+                            className="absolute inset-0"
+                          >
+                            <Image
+                              src={currentSlide.image}
+                              alt={currentSlide.title}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 672px) 100vw, 672px"
+                            />
+                          </motion.div>
+                        </AnimatePresence>
+
+                        {portfolioSlides.length > 1 && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={goPrev}
+                              className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all backdrop-blur-sm z-10"
+                              aria-label="Previous"
+                            >
+                              <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={goNext}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all backdrop-blur-sm z-10"
+                              aria-label="Next"
+                            >
+                              <ChevronRight className="w-5 h-5" />
+                            </button>
+
+                            {/* Progress bar (resets each slide) */}
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+                              <motion.div
+                                key={safeCarouselIndex}
+                                className="h-full bg-accent rounded-r-full origin-left"
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{
+                                  duration: CAROUSEL_INTERVAL_MS / 1000,
+                                  ease: "linear",
+                                }}
+                                style={{ transformOrigin: "left" }}
+                              />
+                            </div>
+
+                            {/* Dots */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                              {portfolioSlides.map((_, i) => (
+                                <button
+                                  key={i}
+                                  type="button"
+                                  onClick={() => {
+                                    setCarouselDirection(i > safeCarouselIndex ? "next" : "prev");
+                                    setCarouselIndex(i);
+                                  }}
+                                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                                    i === safeCarouselIndex
+                                      ? "w-6 bg-accent"
+                                      : "w-1.5 bg-white/40 hover:bg-white/60"
+                                  }`}
+                                  aria-label={`Slide ${i + 1}`}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div className="px-4 py-3 border-t border-white/10 bg-white/[0.02]">
+                        <p className="text-sm font-medium text-foreground truncate">{currentSlide.title}</p>
+                        {currentSlide.description != null && currentSlide.description !== "" && (
+                          <p className="text-xs text-muted truncate mt-0.5">{currentSlide.description}</p>
+                        )}
+                      </div>
+                    </div>
+                  </section>
+                )}
+
+                <div className="pt-2">
+                  <button
+                    onClick={scrollToContact}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
+                    style={{
+                      background: "linear-gradient(135deg, #0080d0 0%, #2DA0FF 50%, #0080d0 100%)",
+                      backgroundSize: "200% 200%",
+                      boxShadow: "0 0 20px -5px rgba(45,160,255,0.4)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundPosition = "100% 0%";
+                      e.currentTarget.style.boxShadow = "0 0 28px -4px rgba(45,160,255,0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundPosition = "0% 0%";
+                      e.currentTarget.style.boxShadow = "0 0 20px -5px rgba(45,160,255,0.4)";
+                    }}
+                  >
+                    Get a Quote for {service.title}
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
-            </div>
             </motion.div>
           </div>
         </>

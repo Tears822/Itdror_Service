@@ -1,388 +1,188 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import {
-  Network,
-  Shield,
-  Cloud,
-  Wrench,
-  Server,
   HeadphonesIcon,
-  Trash2,
-  Users,
   ArrowRight,
   Globe,
   Smartphone,
   Palette,
   Bot,
-  GitBranch,
+  Code2,
   Zap,
   Settings,
-  LucideIcon,
+  CreditCard,
+  ShoppingCart,
+  UtensilsCrossed,
+  Store,
+  MessageCircle,
+  Tv,
+  Heart,
+  Stethoscope,
+  GraduationCap,
+  Home,
+  Scale,
+  Plane,
+  Building,
+  Shield,
+  Cloud,
+  Sparkles,
+  Link2,
+  Wifi,
+  Building2,
+  Car,
+  Barcode,
+  Users,
+  Leaf,
+  Filter,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { ServiceDetailModal } from "./ServiceDetailModal";
+import type { ServiceDetail } from "./ServiceDetailModal";
+import { CosmicSearchInput } from "./CosmicSearchInput";
+import { ServiceBookCard } from "./ServiceBookCard";
+import { CyberBenefitCard } from "./CyberBenefitCard";
+import {
+  serviceCategories,
+  serviceList,
+  type ServiceCategoryId,
+  type ServiceItem,
+} from "@/data/services";
 
-interface Service {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  features: string[];
-  image: string;
-  category?: "it" | "dev";
+const iconMap: Record<ServiceItem["iconKey"], LucideIcon> = {
+  globe: Globe,
+  smartphone: Smartphone,
+  palette: Palette,
+  bot: Bot,
+  code2: Code2,
+  zap: Zap,
+  settings: Settings,
+  headphones: HeadphonesIcon,
+  "credit-card": CreditCard,
+  "shopping-cart": ShoppingCart,
+  utensils: UtensilsCrossed,
+  store: Store,
+  "message-circle": MessageCircle,
+  tv: Tv,
+  heart: Heart,
+  stethoscope: Stethoscope,
+  "graduation-cap": GraduationCap,
+  home: Home,
+  scale: Scale,
+  plane: Plane,
+  building: Building,
+  shield: Shield,
+  cloud: Cloud,
+  sparkles: Sparkles,
+  link: Link2,
+  wifi: Wifi,
+  "building-2": Building2,
+  car: Car,
+  barcode: Barcode,
+  users: Users,
+  leaf: Leaf,
+};
+
+function toDetail(item: ServiceItem): ServiceDetail {
+  return {
+    icon: iconMap[item.iconKey],
+    title: item.title,
+    description: item.description,
+    features: item.features,
+    image: item.image,
+    category: "dev",
+    serviceId: item.id,
+  };
 }
 
-// IT Consulting Services
-const itServices: Service[] = [
-  {
-    icon: Network,
-    title: "Network Setup",
-    description: "Reliable network infrastructure setup and maintenance that keeps your team connected and productive.",
-    features: [
-      "WiFi site surveys and optimization",
-      "Router and switch configuration",
-      "VPN setup and remote access",
-      "Network cabling and structured wiring",
-      "VLAN and subnet design",
-      "Wireless access point deployment",
-      "Network performance monitoring",
-      "Bandwidth management",
-      "Guest network isolation",
-      "Mesh and extender solutions",
-    ],
-    image: "/assets/services/Network_Setup.webp",
-  },
-  {
-    icon: Shield,
-    title: "Cybersecurity",
-    description: "Protect your business from cyber threats with enterprise-grade security solutions.",
-    features: [
-      "Firewall installation and configuration",
-      "Malware and antivirus protection",
-      "Security audits and vulnerability scans",
-      "Endpoint detection and response (EDR)",
-      "Email security and phishing prevention",
-      "Multi-factor authentication (MFA)",
-      "Security policy and compliance review",
-      "Incident response planning",
-      "Patch management",
-      "Encryption and data protection",
-    ],
-    image: "/assets/services/Cybersecurity.webp",
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Solutions",
-    description: "Seamless cloud migration to Microsoft 365, Google Workspace, or AWS.",
-    features: [
-      "Microsoft 365 setup and migration",
-      "Google Workspace deployment",
-      "AWS and Azure migration",
-      "OneDrive and SharePoint configuration",
-      "Teams and collaboration setup",
-      "Cloud backup and sync",
-      "Identity and access management",
-      "Cost optimization and governance",
-      "Hybrid cloud architecture",
-      "Cloud security best practices",
-    ],
-    image: "/assets/services/Cloud_Solution.jpg",
-  },
-  {
-    icon: Wrench,
-    title: "Device Repair",
-    description: "Professional repair services for computers, laptops, and mobile devices.",
-    features: [
-      "Desktop and laptop repair",
-      "Screen replacement",
-      "Battery and power issues",
-      "Hard drive and SSD upgrade",
-      "Virus and malware removal",
-      "Mobile device repair",
-      "Data recovery",
-      "Operating system reinstall",
-      "Hardware diagnostics",
-      "Preventive cleaning and maintenance",
-    ],
-    image: "/assets/services/Device_Repair.jpg",
-  },
-  {
-    icon: Server,
-    title: "Server Management",
-    description: "Keep your servers running smoothly with proactive monitoring and maintenance.",
-    features: [
-      "Server monitoring and alerting",
-      "Backup and disaster recovery",
-      "Windows and Linux server admin",
-      "Virtualization (Hyper-V, VMware)",
-      "Storage and RAID management",
-      "Patch and update management",
-      "Performance tuning",
-      "Log management",
-      "High availability and clustering",
-      "Capacity planning",
-    ],
-    image: "/assets/services/Service_Management.jpg",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "IT Help Desk",
-    description: "Responsive technical support when you need it most. Remote and on-site services.",
-    features: [
-      "Remote support and screen sharing",
-      "On-site technician dispatch",
-      "24/7 availability options",
-      "User account and password reset",
-      "Printer and peripheral setup",
-      "Software installation and updates",
-      "Troubleshooting and ticket tracking",
-      "Knowledge base and documentation",
-      "Training and onboarding support",
-      "SLA-based response times",
-    ],
-    image: "/assets/services/IT_Help_Desk.jpg",
-  },
-  {
-    icon: Trash2,
-    title: "Data Destruction",
-    description: "Certified data destruction and secure technology recycling through our partner.",
-    features: [
-      "Certified hard drive destruction",
-      "Secure e-waste recycling",
-      "Compliance documentation (e.g. NAID)",
-      "On-site and off-site options",
-      "Degaussing and physical destruction",
-      "Certificate of destruction",
-      "SSD and mobile device wiping",
-      "Asset tracking and chain of custody",
-      "Environmentally responsible disposal",
-      "Audit-ready reporting",
-    ],
-    image: "/assets/services/Data_Destruction.webp",
-  },
-  {
-    icon: Users,
-    title: "Technology Consulting",
-    description: "Expert guidance on technology trends, stack recommendations, and vendor negotiations.",
-    features: [
-      "Vendor evaluation and negotiation",
-      "Technology roadmap planning",
-      "IT budget and TCO analysis",
-      "Software and hardware selection",
-      "Digital strategy advisory",
-      "RFP and procurement support",
-      "Market and trend analysis",
-      "Integration and architecture advice",
-      "Staff training recommendations",
-      "Compliance and risk assessment",
-    ],
-    image: "/assets/services/Technology_Consulting.avif",
-  },
-];
+const applicationSupportService: ServiceDetail = {
+  icon: HeadphonesIcon,
+  title: "Application Support Specialist",
+  description:
+    "An IT professional who manages, maintains, and troubleshoots your business software and applications to ensure optimal performance. We bridge the gap between technical teams and end-users—so when you have issues after launch, you get clear communication and fast resolution.",
+  features: [
+    "Troubleshooting: Diagnosing and resolving software, application, and system issues as your technical subject matter expert.",
+    "Maintenance & Upgrades: Installing, configuring, and updating applications; managing enhancements and database integrity.",
+    "User Support & Training: Assisting end-users with application usage, troubleshooting, and training to improve efficiency.",
+    "Documentation: Recording issues, documenting resolutions, and updating technical documentation for troubleshooting.",
+    "Collaboration: Working with developers and vendors to resolve bugs and implement fixes—so you get one team, not silos.",
+  ],
+  image: "/assets/service2/application_support.avif",
+  category: "support",
+  serviceId: "application-support",
+};
 
-// Development Services
-const devServices: Service[] = [
-  {
-    icon: Globe,
-    title: "Web Development",
-    description: "Custom web applications built with modern frameworks like React and Next.js.",
-    features: [
-      "React and Next.js applications",
-      "Full-stack web apps (Node, Python, .NET)",
-      "E-commerce and payment integration",
-      "Progressive Web Apps (PWA)",
-      "REST and GraphQL APIs",
-      "Headless CMS integration",
-      "SEO and performance optimization",
-      "Responsive and accessible design",
-      "Admin dashboards and portals",
-      "Third-party API integration",
-    ],
-    image: "/assets/services/Web_Development.webp",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Development",
-    description: "Native and cross-platform mobile applications for iOS and Android.",
-    features: [
-      "iOS (Swift) and Android (Kotlin) native apps",
-      "React Native cross-platform apps",
-      "Flutter development",
-      "Push notifications and in-app messaging",
-      "Offline and sync capabilities",
-      "App store submission support",
-      "Backend and API integration",
-      "Biometrics and security",
-      "Analytics and crash reporting",
-      "UI/UX for mobile",
-    ],
-    image: "/assets/services/Mobile_Development.webp",
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    description: "User-centered design services that enhance satisfaction and drive engagement.",
-    features: [
-      "User research and interviews",
-      "Wireframing and prototyping",
-      "Design systems and component libraries",
-      "Figma and Adobe XD deliverables",
-      "Usability testing",
-      "Accessibility (WCAG) compliance",
-      "Information architecture",
-      "Visual design and branding",
-      "Interaction design",
-      "Design handoff to development",
-    ],
-    image: "/assets/services/Design.webp",
-  },
-  {
-    icon: Bot,
-    title: "AI Solutions",
-    description: "AI and machine learning solutions that automate processes and provide insights.",
-    features: [
-      "Machine learning model development",
-      "NLP and chatbot development",
-      "Computer vision and image recognition",
-      "Predictive analytics",
-      "OpenAI and LLM integration",
-      "Custom AI pipelines",
-      "Data preprocessing and feature engineering",
-      "Model deployment and APIs",
-      "Recommendation systems",
-      "Process automation with AI",
-    ],
-    image: "/assets/services/AI_Solution.webp",
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Services",
-    description: "Scalable cloud infrastructure and architecture design for your business.",
-    features: [
-      "AWS and Azure architecture",
-      "Serverless (Lambda, Functions)",
-      "Microservices design",
-      "Container orchestration (ECS, AKS)",
-      "Database and storage setup",
-      "CDN and edge delivery",
-      "Cost and resource optimization",
-      "Infrastructure as Code (Terraform, CloudFormation)",
-      "Disaster recovery and backup",
-      "Security and compliance in cloud",
-    ],
-    image: "/assets/services/Cloud_service.webp",
-  },
-  {
-    icon: GitBranch,
-    title: "DevOps & CI/CD",
-    description: "Streamlined development workflows with automated testing and deployment.",
-    features: [
-      "Docker and Kubernetes setup",
-      "CI/CD pipelines (GitHub Actions, GitLab, Jenkins)",
-      "Monitoring and alerting (Prometheus, Grafana)",
-      "Log aggregation and analysis",
-      "Infrastructure automation",
-      "Blue-green and canary deployments",
-      "Secrets and config management",
-      "Test automation in pipeline",
-      "Environment management (dev/staging/prod)",
-      "Performance and reliability tuning",
-    ],
-    image: "/assets/services/Devops.webp",
-  },
-  {
-    icon: Zap,
-    title: "Digital Transformation",
-    description: "Comprehensive digital transformation services that modernize your business.",
-    features: [
-      "Process automation (RPA, workflows)",
-      "Legacy system modernization",
-      "API and system integration",
-      "Data migration and consolidation",
-      "Workflow and BPM design",
-      "Change management support",
-      "Digital strategy and roadmap",
-      "Platform and ecosystem integration",
-      "Agile and DevOps adoption",
-      "Training and documentation",
-    ],
-    image: "/assets/services/Digital_Transfromation.jpg",
-  },
-  {
-    icon: Settings,
-    title: "Support & Maintenance",
-    description: "Ongoing support and maintenance to ensure your systems run smoothly.",
-    features: [
-      "24/7 monitoring and alerting",
-      "Bug fixes and hotfixes",
-      "Performance tuning",
-      "Security updates and patching",
-      "Database maintenance",
-      "Backup verification",
-      "SLA-based support tiers",
-      "Incident and change management",
-      "Documentation updates",
-      "Version upgrades and migration support",
-    ],
-    image: "/assets/services/Support_Maintanance.avif",
-  },
-];
+const softwareDevelopmentService: ServiceDetail = {
+  icon: Code2,
+  title: "Software Development",
+  description:
+    "Custom web, mobile, AI, and cloud solutions built with modern stacks. We deliver scalable applications tailored to your product, with clear architecture and 1 month free application support after launch.",
+  serviceId: "software-development",
+  features: [
+    "Web & mobile apps: React, Next.js, React Native, Flutter, and proven frameworks.",
+    "Backend & APIs: Node.js, Python, and cloud-native services (AWS, Vercel, etc.).",
+    "AI & data: LLM integration, predictive analytics, and data pipelines when needed.",
+    "Filter by domain below for SaaS, FinTech, HealthTech, eCommerce, and more.",
+  ],
+  image: "/assets/service2/software_development.avif",
+  category: "dev",
+};
 
-function ServiceCard({ service, onLearnMore }: { service: Service; onLearnMore?: (service: Service) => void }) {
-  const IconComponent = service.icon;
+const CheckIcon = () => (
+  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <path clipRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" fillRule="evenodd" />
+  </svg>
+);
 
-  const handleLearnMore = () => {
-    onLearnMore?.(service);
-  };
-
+function ServiceCard({
+  service,
+  onLearnMore,
+}: {
+  service: ServiceItem;
+  onLearnMore: (item: ServiceItem) => void;
+}) {
   return (
-    <div className="group relative rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent/30 transition-all duration-300 overflow-hidden hover:-translate-y-2">
-      {/* Service Image */}
-      <div className="relative h-40 overflow-hidden">
-        <Image
-          src={service.image}
-          alt={service.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-          onError={(e) => {
-            // Fallback for missing images
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        {/* Icon overlay */}
-        <div className="absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-primary/30 backdrop-blur-sm flex items-center justify-center border border-accent/20">
-          <IconComponent className="w-6 h-6 text-accent" />
+    <div
+      className="detail-service-card"
+      role="button"
+      tabIndex={0}
+      onClick={() => onLearnMore(service)}
+      onKeyDown={(e) => e.key === "Enter" && onLearnMore(service)}
+    >
+      <div className="detail-service-card__border" aria-hidden />
+      <div className="detail-service-card__inner">
+        <div className="detail-service-card__image">
+          <Image
+            src={service.image}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="detail-service-card__img"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = "none";
+            }}
+          />
+          <span className="detail-service-card__image-overlay" aria-hidden />
         </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
-          {service.title}
-        </h3>
-        <p className="text-sm text-muted mb-4 leading-relaxed line-clamp-2">
-          {service.description}
-        </p>
-
-        {/* Features (show first 4 on card; full list in detail modal) */}
-        <ul className="space-y-1.5 mb-4">
-          {service.features.slice(0, 4).map((feature) => (
-            <li key={feature} className="text-xs text-muted flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-              {feature}
+        <div className="detail-service-card__title-container">
+          <span className="detail-service-card__title">{service.title}</span>
+          <p className="detail-service-card__paragraph">{service.description}</p>
+        </div>
+        <hr className="detail-service-card__line" />
+        <ul className="detail-service-card__list">
+          {service.features.slice(0, 5).map((feature) => (
+            <li key={feature} className="detail-service-card__list-item">
+              <span className="detail-service-card__check">
+                <CheckIcon />
+              </span>
+              <span className="detail-service-card__list-text">{feature}</span>
             </li>
           ))}
         </ul>
-
-        {/* Learn more */}
-        <button
-          onClick={handleLearnMore}
-          className="flex items-center gap-2 text-sm text-accent hover:text-accent/90 opacity-80 group-hover:opacity-100 transition-opacity w-full"
-        >
-          <span>Learn more</span>
-          <ArrowRight className="w-4 h-4" />
+        <button type="button" className="detail-service-card__button">
+          Learn more
         </button>
       </div>
     </div>
@@ -391,81 +191,180 @@ function ServiceCard({ service, onLearnMore }: { service: Service; onLearnMore?:
 
 export function Services() {
   const [detailModalOpen, setDetailModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedDetail, setSelectedDetail] = useState<ServiceDetail | null>(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<ServiceCategoryId | "">("");
 
-  const handleLearnMore = (service: Service) => {
-    setSelectedService(service);
+  const handleLearnMore = (item: ServiceItem) => {
+    setSelectedDetail(toDetail(item));
     setDetailModalOpen(true);
   };
 
+  const handleLearnMoreSupport = () => {
+    setSelectedDetail(applicationSupportService);
+    setDetailModalOpen(true);
+  };
+
+  const handleLearnMoreSoftwareDev = () => {
+    setSelectedDetail(softwareDevelopmentService);
+    setDetailModalOpen(true);
+  };
+
+  const filteredServices = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const byCategory =
+      categoryFilter === ""
+        ? serviceList.filter((s) => s.categoryId !== "support")
+        : serviceList.filter((s) => s.categoryId === categoryFilter);
+    if (!q) return byCategory;
+    return byCategory.filter(
+      (s) =>
+        s.title.toLowerCase().includes(q) ||
+        s.description.toLowerCase().includes(q) ||
+        s.features.some((f) => f.toLowerCase().includes(q))
+    );
+  }, [search, categoryFilter]);
+
+  const activeCategoryLabel =
+    categoryFilter === ""
+      ? "All services"
+      : serviceCategories.find((c) => c.id === categoryFilter)?.label ?? "All services";
+
   return (
     <section id="services" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Semi-transparent background */}
-      <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* IT Consulting Section Header */}
+      <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         <div className="text-center mb-16 lg:mb-20">
           <span className="text-sm font-medium text-accent uppercase tracking-widest mb-4 block">
-            IT Consulting
+            Our Services
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            IT Solutions for{" "}
-            <span className="gradient-text">Business Success</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Software Development &{" "}
+            <span className="gradient-text">Application Support</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-muted">
-            Professional IT support, network setup, cybersecurity, and cloud solutions
-            delivered remotely to clients worldwide.
+          <p className="max-w-2xl mx-auto text-xl text-muted">
+            We build your applications and support them after launch. One team:
+            development expertise plus dedicated application support so you get
+            clear communication and fast resolution when issues arise.
           </p>
         </div>
 
-        {/* IT Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
-          {itServices.map((service) => (
-            <ServiceCard key={service.title} service={{ ...service, category: "it" }} onLearnMore={handleLearnMore} />
-          ))}
-        </div>
-
-        {/* Development Section Header */}
-        <div className="text-center mb-16 lg:mb-20">
-          <span className="text-sm font-medium text-accent uppercase tracking-widest mb-4 block">
-            Development Services
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Custom Software{" "}
-            <span className="gradient-text">Development</span>
-          </h2>
-          <p className="max-w-2xl mx-auto text-lg text-muted">
-            From web and mobile applications to AI solutions and cloud infrastructure—
-            delivered remotely to clients worldwide. We build technology that drives your business forward.
-          </p>
-        </div>
-
-        {/* Development Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {devServices.map((service) => (
-            <ServiceCard key={service.title} service={{ ...service, category: "dev" }} onLearnMore={handleLearnMore} />
-          ))}
-        </div>
-
-        {/* Benefits Section */}
-        <div className="mt-20 grid md:grid-cols-3 gap-6">
-          {[
-            { title: "Fast Response Time", desc: "Same-day response for urgent issues" },
-            { title: "Affordable Rates", desc: "Competitive pricing for quality service" },
-            { title: "Long-Term Contracts Preferred", desc: "Partnership-focused engagement for lasting value" },
-          ].map((benefit) => (
-            <div
-              key={benefit.title}
-              className="text-center p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-white/5"
-            >
-              <h4 className="text-lg font-semibold mb-2 text-accent">{benefit.title}</h4>
-              <p className="text-sm text-muted">{benefit.desc}</p>
+        {/* Application Support + Software Development — book-style cards with "+" */}
+        <div id="application-support" className="mb-20 scroll-mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-10 items-center max-w-5xl mx-auto">
+            <ServiceBookCard
+              title="Application Support Specialist"
+              description="We manage, maintain, and troubleshoot your business software—clear communication and fast resolution when issues arise."
+              icon={HeadphonesIcon}
+              coverImage="/assets/service2/application_support.avif"
+              onClick={handleLearnMoreSupport}
+            />
+            <div className="flex items-center justify-center py-4 md:py-0" aria-hidden>
+              <span className="services-teaser-plus">+</span>
             </div>
+            <ServiceBookCard
+              title="Software Development"
+              description="Custom web, mobile, AI, and cloud solutions with modern stacks. Filter by domain below."
+              icon={Code2}
+              coverImage="/assets/service2/software_development.avif"
+              onClick={handleLearnMoreSoftwareDev}
+            />
+          </div>
+        </div>
+
+        {/* Software Development — filter + grid */}
+        <div id="software-development" className="scroll-mt-24">
+          <h3 className="text-xl font-semibold text-accent mb-4">
+            Software Development by Domain
+          </h3>
+          <p className="max-w-2xl text-muted text-sm mb-8">
+            Custom web, mobile, AI, and cloud solutions—with modern stacks and
+            proven delivery. Filter by category or search below.
+          </p>
+
+          {/* Search + Category filter */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex-1 min-w-0">
+              <CosmicSearchInput
+                value={search}
+                onChange={setSearch}
+                placeholder="Search services..."
+                aria-label="Search services"
+              />
+            </div>
+            <div className="cosmic-select-wrapper sm:w-64 sm:min-w-[200px]">
+              <Filter className="cosmic-select__icon" aria-hidden />
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value as ServiceCategoryId | "")}
+                className="cosmic-select__input"
+                aria-label="Filter by category"
+              >
+                <option value="">All categories</option>
+                {serviceCategories
+                  .filter((c) => c.id !== "support")
+                  .map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.label}
+                    </option>
+                  ))}
+              </select>
+              <span className="cosmic-select__chevron" aria-hidden>▼</span>
+            </div>
+          </div>
+
+          {filteredServices.length === 0 ? (
+            <p className="text-muted text-center py-12">
+              No services match your search. Try a different term or category.
+            </p>
+          ) : (
+            <>
+              <p className="text-sm text-muted mb-4">
+                {activeCategoryLabel}
+                {search && ` · “${search}”`} — {filteredServices.length} service
+                {filteredServices.length !== 1 ? "s" : ""}
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                {filteredServices.map((service) => (
+                  <ServiceCard
+                    key={service.id}
+                    service={service}
+                    onLearnMore={handleLearnMore}
+                  />
+                ))}
+              </div>
+              <p className="text-center text-muted text-sm sm:text-base max-w-2xl mx-auto mb-16">
+                We can handle other development needs custom projects, integrations, or domains not listed above. Get in touch to discuss your project.
+              </p>
+            </>
+          )}
+        </div>
+
+        {/* Benefits */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Integrated team",
+              desc: "Development and application support in one place—no silos.",
+            },
+            {
+              title: "Support after launch",
+              desc: "1 month free support after launch; ongoing support available.",
+            },
+            {
+              title: "Fast response",
+              desc: "Same-day response for urgent issues and clear client–dev communication.",
+            },
+          ].map((benefit) => (
+            <CyberBenefitCard
+              key={benefit.title}
+              title={benefit.title}
+              desc={benefit.desc}
+            />
           ))}
         </div>
 
-        {/* CTA */}
         <div className="text-center mt-16">
           <a
             href="#contact"
@@ -475,17 +374,16 @@ export function Services() {
             }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all btn-glow"
           >
-            Get Your Free IT Consultation
+            Get Your Free Consultation
             <ArrowRight className="w-5 h-5" />
           </a>
         </div>
       </div>
 
-      {/* Service detail modal */}
       <ServiceDetailModal
         isOpen={detailModalOpen}
         onClose={() => setDetailModalOpen(false)}
-        service={selectedService}
+        service={selectedDetail}
       />
     </section>
   );

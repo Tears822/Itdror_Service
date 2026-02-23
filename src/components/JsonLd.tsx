@@ -7,7 +7,7 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/assets/logo.png`,
   description:
-    "Professional IT support, network setup, cybersecurity, cloud solutions, and software development delivered remotely to clients worldwide.",
+    "Software development and application support in one team. Custom applications plus dedicated support after launch. Delivered remotely worldwide.",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+1-617-712-9076",
@@ -36,7 +36,7 @@ const websiteSchema = {
   name: "IT Dor Services",
   url: siteUrl,
   description:
-    "IT consulting, network setup, cybersecurity, cloud solutions, and software development delivered remotely worldwide.",
+    "Software development and application support delivered remotely worldwide. Build and support your applications with one integrated team.",
   publisher: {
     "@type": "Organization",
     name: "IT Dor Services",

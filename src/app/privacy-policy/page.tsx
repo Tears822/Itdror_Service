@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Header, Footer, OrbBackground, CursorEffect, FloatingLines } from "@/components";
+import { Header, Footer, Background3D } from "@/components";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -24,14 +24,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicy() {
   return (
     <>
-      <OrbBackground />
-      <FloatingLines 
-        lineCount={60}
-        colors={["#2da0ff", "#00d4ff", "#0066cc", "#4dc9ff", "#0080d0", "#1a8fff", "#66ccff", "#99ddff"]}
-        speed={1}
-        opacity={0.5}
-      />
-      <CursorEffect />
+      <Background3D />
       <Header />
       <main className="min-h-screen pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
