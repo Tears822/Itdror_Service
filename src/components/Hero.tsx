@@ -27,7 +27,7 @@ export function Hero() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover"
             onError={() => setVideoError(true)}
           >
             <source src="/assets/hero.mp4" type="video/mp4" />
