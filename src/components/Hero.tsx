@@ -34,7 +34,7 @@ export function Hero() {
           </video>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/75 to-white/90 pointer-events-none" style={{ zIndex: 1 }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative max-w-content mx-auto px-6 sm:px-8 lg:px-12 text-center pt-28 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
         {/* Badge */}
