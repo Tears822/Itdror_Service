@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { JsonLd, LenisProvider, ScrollToTop, ChatProviderWithWidget } from "@/components";
 import { QuoteIntentProvider } from "@/contexts/QuoteIntentContext";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
@@ -84,8 +84,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${plusJakarta.variable} font-sans antialiased text-foreground min-h-screen`}
       >
+        {/* Smooth page background – same effect across all pages */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#f8fafc] via-background to-[#f8fafc]" />
+        <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(20,184,166,0.05),transparent_55%)] pointer-events-none" aria-hidden />
         <JsonLd />
         <ScrollToTop />
         <ChatProviderWithWidget>

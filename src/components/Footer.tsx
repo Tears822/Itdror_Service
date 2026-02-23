@@ -35,61 +35,54 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative pt-16 pb-8 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-background/70" />
-      
-      {/* Glow effect */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
+    <footer className="relative pt-16 pb-8 overflow-hidden bg-gradient-to-b from-teal-950 to-teal-950/95 text-white border-t border-teal-800/50">
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
-        {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
-          {/* Brand */}
+        {/* Main Footer Content – Consultport-style columns */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-12 mb-14">
+          {/* Brand + Get in touch */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6 group">
+            <Link href="/" className="inline-block mb-5">
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
                 width={1200}
                 height={400}
-                className="h-auto w-auto max-h-10 object-contain"
+                className="h-8 w-auto object-contain opacity-95 hover:opacity-100 transition-opacity"
               />
             </Link>
-            <p className="text-muted text-sm leading-relaxed mb-6">
+            <p className="text-teal-200/80 text-sm leading-relaxed mb-6 max-w-xs">
               Software development and application support in one team.
-              Delivered remotely—build and support wherever you are.
+              Delivered remotely build and support wherever you are.
             </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-teal-300/70 mb-3">Get in touch</p>
+            <div className="space-y-3 mb-5">
               <a
                 href="mailto:sales@itdorservices.com"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 shrink-0" />
                 sales@itdorservices.com
               </a>
               <a
                 href="tel:+16177129076"
-                className="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 shrink-0" />
                 +1 (617) 712-9076
               </a>
-              <SocialLinksCard layout="row" />
             </div>
+            <SocialLinksCard layout="row" />
           </div>
 
           {/* Application Support */}
           <div>
-            <h4 className="font-semibold mb-4">Application Support</h4>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Application Support</h4>
             <ul className="space-y-3">
               {footerLinks.applicationSupport.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted hover:text-foreground transition-colors line-hover"
+                    className="text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -100,13 +93,13 @@ export function Footer() {
 
           {/* Software Development */}
           <div>
-            <h4 className="font-semibold mb-4">Software Development</h4>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Software Development</h4>
             <ul className="space-y-3">
               {footerLinks.devServices.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted hover:text-foreground transition-colors line-hover"
+                    className="text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -117,13 +110,13 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted hover:text-foreground transition-colors line-hover"
+                    className="text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -134,13 +127,13 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
+            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted hover:text-foreground transition-colors line-hover"
+                    className="text-sm text-teal-200/80 hover:text-teal-200 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -151,16 +144,15 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted">
+        <div className="pt-8 border-t border-teal-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-teal-200/70">
             © {new Date().getFullYear()} IT Dor Services. All rights reserved.
           </p>
-          
           <motion.button
             onClick={scrollToTop}
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/5 text-sm text-muted hover:text-foreground transition-colors"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-teal-900/80 hover:bg-teal-800 text-sm font-medium text-teal-100 hover:text-white transition-colors border border-teal-700/50"
           >
             Back to top
             <ArrowUp className="w-4 h-4" />

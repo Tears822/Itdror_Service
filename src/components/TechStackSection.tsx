@@ -157,7 +157,7 @@ function CarouselRow({
 
 export function TechStackSection() {
   return (
-    <section className="relative py-16 lg:py-20 overflow-hidden border-y border-white/10">
+    <section className="relative py-16 lg:py-20 overflow-hidden border-y border-black/8 bg-section-alt">
       <div className="absolute inset-0 bg-background/30" />
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         <motion.p

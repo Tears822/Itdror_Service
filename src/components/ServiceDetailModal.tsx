@@ -101,7 +101,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md"
+            className="fixed inset-0 z-[100] bg-black/25 backdrop-blur-sm"
             aria-hidden
             data-lenis-prevent
             onWheel={(e) => { e.preventDefault(); e.stopPropagation(); }}
@@ -118,11 +118,9 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl pointer-events-auto my-auto rounded-3xl overflow-hidden flex flex-col"
+              className="w-full max-w-2xl pointer-events-auto my-auto rounded-3xl overflow-hidden flex flex-col bg-white border border-black/8 shadow-xl shadow-black/10"
               style={{
                 maxHeight: "calc(100vh - 2rem)",
-                boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 80px -20px rgba(45,160,255,0.15)",
-                background: "linear-gradient(165deg, rgba(0,26,46,0.97) 0%, rgba(0,19,34,0.98) 50%, rgba(0,22,40,0.97) 100%)",
               }}
               role="dialog"
               aria-modal="true"
@@ -139,17 +137,15 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                 />
                 <div
-                  className="absolute inset-0"
-                  style={{
-                    background: "linear-gradient(180deg, transparent 0%, rgba(0,19,34,0.4) 40%, rgba(0,19,34,0.95) 100%)",
-                  }}
+                  className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70"
+                  aria-hidden
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5" />
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5" aria-hidden />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" aria-hidden />
                 <div className="absolute bottom-5 left-6 right-6 flex items-end justify-between gap-4">
                   <div className="flex items-center gap-4 min-w-0">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
-                      <IconComponent className="w-7 h-7 text-accent" />
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border border-white/20 bg-white/95 backdrop-blur-md shadow-lg text-primary">
+                      <IconComponent className="w-7 h-7" />
                     </div>
                     <h2 id="service-detail-title" className="text-2xl sm:text-3xl font-bold text-white truncate drop-shadow-md">
                       {service.title}
@@ -157,7 +153,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                   </div>
                   <button
                     onClick={onClose}
-                    className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white transition-all shrink-0"
+                    className="p-2.5 rounded-xl bg-white/95 hover:bg-white border border-black/10 text-foreground transition-all shrink-0 shadow-sm"
                     aria-label="Close"
                   >
                     <X className="w-5 h-5" />
@@ -166,19 +162,19 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
               </div>
 
               {/* Content - min-h-0 so flex child can shrink and scroll */}
-              <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-6 sm:p-8 space-y-8">
+              <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-6 sm:p-8 space-y-8 bg-[#f8fafc]/50">
                 <section>
-                  <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-3">About this service</p>
+                  <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">About this service</p>
                   <p className="text-muted leading-relaxed text-[15px]">{service.description}</p>
                 </section>
 
                 <section>
-                  <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-4">What we offer</p>
+                  <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">What we offer</p>
                   <ul className="space-y-3">
                     {service.features.map((feature, i) => (
                       <li key={feature} className="flex items-start gap-3 group">
                         <span
-                          className="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0 ring-4 ring-accent/20 group-hover:ring-accent/30 transition-all"
+                          className="mt-1.5 w-2 h-2 rounded-full bg-primary shrink-0 ring-4 ring-primary/20 group-hover:ring-primary/30 transition-all"
                           aria-hidden
                         />
                         <span className="text-foreground text-[15px] leading-relaxed">{feature}</span>
@@ -189,9 +185,9 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
 
                 {portfolioSlides.length > 0 && currentSlide && (
                   <section>
-                    <p className="text-sm font-semibold text-accent/90 uppercase tracking-widest mb-4">Portfolio</p>
-                    <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/30 shadow-xl">
-                      <div className="relative aspect-video bg-black/40">
+                    <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Portfolio</p>
+                    <div className="rounded-2xl overflow-hidden border border-black/8 bg-white shadow-md">
+                      <div className="relative aspect-video bg-slate-100">
                         <AnimatePresence initial={false} mode="wait" custom={carouselDirection}>
                           <motion.div
                             key={safeCarouselIndex}
@@ -222,7 +218,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                             <button
                               type="button"
                               onClick={goPrev}
-                              className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all backdrop-blur-sm z-10"
+                              className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-white/95 hover:bg-white border border-black/10 text-foreground transition-all shadow-sm z-10"
                               aria-label="Previous"
                             >
                               <ChevronLeft className="w-5 h-5" />
@@ -230,17 +226,17 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                             <button
                               type="button"
                               onClick={goNext}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 text-white transition-all backdrop-blur-sm z-10"
+                              className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-white/95 hover:bg-white border border-black/10 text-foreground transition-all shadow-sm z-10"
                               aria-label="Next"
                             >
                               <ChevronRight className="w-5 h-5" />
                             </button>
 
                             {/* Progress bar (resets each slide) */}
-                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/10">
                               <motion.div
                                 key={safeCarouselIndex}
-                                className="h-full bg-accent rounded-r-full origin-left"
+                                className="h-full bg-primary rounded-r-full origin-left"
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
                                 transition={{
@@ -263,8 +259,8 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                                   }}
                                   className={`h-1.5 rounded-full transition-all duration-300 ${
                                     i === safeCarouselIndex
-                                      ? "w-6 bg-accent"
-                                      : "w-1.5 bg-white/40 hover:bg-white/60"
+                                      ? "w-6 bg-primary"
+                                      : "w-1.5 bg-black/30 hover:bg-black/50"
                                   }`}
                                   aria-label={`Slide ${i + 1}`}
                                 />
@@ -273,7 +269,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                           </>
                         )}
                       </div>
-                      <div className="px-4 py-3 border-t border-white/10 bg-white/[0.02]">
+                      <div className="px-4 py-3 border-t border-black/8 bg-slate-50/80">
                         <p className="text-sm font-medium text-foreground truncate">{currentSlide.title}</p>
                         {currentSlide.description != null && currentSlide.description !== "" && (
                           <p className="text-xs text-muted truncate mt-0.5">{currentSlide.description}</p>
@@ -286,20 +282,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                 <div className="pt-2">
                   <button
                     onClick={scrollToContact}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
-                    style={{
-                      background: "linear-gradient(135deg, #0080d0 0%, #2DA0FF 50%, #0080d0 100%)",
-                      backgroundSize: "200% 200%",
-                      boxShadow: "0 0 20px -5px rgba(45,160,255,0.4)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundPosition = "100% 0%";
-                      e.currentTarget.style.boxShadow = "0 0 28px -4px rgba(45,160,255,0.5)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundPosition = "0% 0%";
-                      e.currentTarget.style.boxShadow = "0 0 20px -5px rgba(45,160,255,0.4)";
-                    }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-primary hover:bg-primary-hover transition-all duration-200 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/25"
                   >
                     Get a Quote for {service.title}
                     <ArrowRight className="w-5 h-5" />

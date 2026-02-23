@@ -1,7 +1,5 @@
 "use client";
 
-import { useId } from "react";
-
 type CosmicSearchInputProps = {
   value: string;
   onChange: (value: string) => void;
@@ -35,8 +33,6 @@ export function CosmicSearchInput({
   "aria-label": ariaLabel = "Search",
   className = "",
 }: CosmicSearchInputProps) {
-  const gradientId = useId().replace(/:/g, "-");
-
   return (
     <div className={`cosmic-search ${className}`.trim()}>
       <div className="cosmic-search__layers cosmic-search__nebula" aria-hidden />
@@ -78,7 +74,7 @@ export function CosmicSearchInput({
             strokeLinejoin="round"
             strokeLinecap="round"
             strokeWidth={2}
-            stroke={`url(#${gradientId})`}
+            stroke="currentColor"
             fill="none"
             height={24}
             width={24}
@@ -86,12 +82,6 @@ export function CosmicSearchInput({
           >
             <circle r={8} cy={11} cx={11} />
             <line y2="16.65" x2="16.65" y1={21} x1={21} />
-            <defs>
-              <linearGradient gradientTransform="rotate(45)" id={gradientId}>
-                <stop stopColor="#b3dfff" offset="0%" />
-                <stop stopColor="#2DA0FF" offset="100%" />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
       </div>

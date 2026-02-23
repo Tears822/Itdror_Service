@@ -89,7 +89,9 @@ export function ServicesTeaser() {
 
   return (
     <section id="services-teaser" className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
+      {/* Smooth gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-section-alt via-background to-section-alt" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(20,184,166,0.06),transparent_60%)]" aria-hidden />
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         <div className="text-center mb-16 lg:mb-20">
           <span className="text-sm font-semibold text-accent uppercase tracking-widest mb-4 block">

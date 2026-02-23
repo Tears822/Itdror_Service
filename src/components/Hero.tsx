@@ -15,23 +15,21 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-section-alt via-background to-section-alt"
     >
-      {/* Video Background */}
+      {/* Optional video background – light overlay for readability */}
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-30"
         >
           <source src="/assets/hero.mp4" type="video/mp4" />
         </video>
       </div>
-      
-      {/* Subtle overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background/50 pointer-events-none" style={{ zIndex: 1 }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/75 to-white/90 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative max-w-content mx-auto px-6 sm:px-8 lg:px-12 text-center pt-28 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
         {/* Badge */}
@@ -92,7 +90,7 @@ export function Hero() {
               <span className="w-6 h-6 flex shrink-0 items-center justify-center">
                 <CheckCircle className="w-5 h-5 text-green-500" />
               </span>
-              <span className="text-sm sm:text-base text-left">{benefit}</span>
+              <span className="text-sm sm:text-base text-left text-foreground">{benefit}</span>
             </motion.div>
           ))}
         </motion.div>

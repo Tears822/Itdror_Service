@@ -12,16 +12,17 @@ const config: Config = {
         content: "1600px",
       },
       colors: {
-        background: "#001322",
-        foreground: "#ffffff",
-        primary: "#0080d0",
-        "primary-hover": "#00a0ff",
-        accent: "#2DA0FF",
-        muted: "rgba(255, 255, 255, 0.6)",
-        "muted-dark": "rgba(255, 255, 255, 0.1)",
+        background: "#ffffff",
+        foreground: "#0f172a",
+        primary: "#0d9488",
+        "primary-hover": "#0f766e",
+        accent: "#14b8a6",
+        muted: "#64748b",
+        "muted-dark": "#e2e8f0",
+        "section-alt": "#f8fafc",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["var(--font-sans)", "Plus Jakarta Sans", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
       },
       animation: {
@@ -51,8 +52,8 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px -5px rgba(45, 160, 255, 0.3)" },
-          "50%": { boxShadow: "0 0 40px -5px rgba(45, 160, 255, 0.5)" },
+          "0%, 100%": { boxShadow: "0 0 20px -5px rgba(20, 184, 166, 0.3)" },
+          "50%": { boxShadow: "0 0 40px -5px rgba(20, 184, 166, 0.5)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },

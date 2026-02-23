@@ -83,7 +83,7 @@ export function TestimonialsSection() {
                 <p className="testimonial-card__text">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <p className="text-sm text-white/60 mt-3">
+                <p className="testimonial-card__author text-sm text-muted mt-3">
                   — {t.name}, {t.role}
                 </p>
               </div>

@@ -74,8 +74,8 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Semi-transparent background */}
-      <div className="absolute inset-0 bg-background/50 backdrop-blur-sm" />
+      {/* Subtle overlay so layout gradient shows through */}
+      <div className="absolute inset-0 bg-background/10 backdrop-blur-[2px]" aria-hidden />
 
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         {/* Section Header */}

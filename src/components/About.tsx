@@ -56,8 +56,8 @@ const teamMembers = [
 export function About() {
   return (
     <section id="about" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Background: project color with subtle depth */}
-      <div className="absolute inset-0 bg-background/60" />
+      {/* Background: subtle overlay so layout gradient shows through */}
+      <div className="absolute inset-0 bg-background/10" aria-hidden />
       <div
         className="absolute inset-0 opacity-40 pointer-events-none"
         style={{

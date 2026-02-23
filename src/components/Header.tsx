@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { RidgeButton } from "./RidgeButton";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -40,9 +39,9 @@ export function Header() {
       >
         <div
           className={clsx(
-            "w-full max-w-4xl rounded-xl md:rounded-2xl px-4 md:px-8 transition-all duration-300",
-            "border border-white/10 backdrop-blur-xl shadow-lg shadow-black/20",
-            isScrolled ? "bg-background/80" : "bg-background/40"
+            "w-full max-w-5xl rounded-xl md:rounded-2xl px-4 md:px-8 transition-all duration-300",
+            "border border-black/8 bg-white/95 backdrop-blur-xl shadow-md shadow-black/5",
+            isScrolled && "shadow-lg shadow-black/8"
           )}
         >
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -66,10 +65,10 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={clsx(
-                    "px-5 py-3 text-base font-semibold rounded-xl transition-all duration-200",
+                    "px-4 py-3 text-[15px] font-medium rounded-lg transition-all duration-200",
                     (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)))
-                      ? "text-accent underline underline-offset-4 decoration-2 decoration-accent"
-                      : "text-muted hover:text-foreground hover:underline hover:underline-offset-4 hover:decoration-2 hover:decoration-accent"
+                      ? "text-primary font-semibold"
+                      : "text-muted hover:text-foreground"
                   )}
                 >
                   {item.label}
@@ -78,7 +77,12 @@ export function Header() {
             </nav>
 
             <div className="hidden md:block">
-              <RidgeButton href="/contact">Get Started</RidgeButton>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm hover:opacity-95 transition-opacity shadow-sm"
+              >
+                Get Started
+              </Link>
             </div>
 
             <button
@@ -98,7 +102,7 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden pt-24"
+            className="fixed inset-0 z-40 bg-white/98 backdrop-blur-xl md:hidden pt-24 border-t border-black/5"
           >
             <nav className="flex flex-col items-center gap-6 p-8">
               {navItems.map((item, index) => (
@@ -112,10 +116,10 @@ export function Header() {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={clsx(
-                      "text-2xl font-semibold block py-2",
+                      "text-xl font-medium block py-2",
                       (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)))
-                        ? "text-accent underline underline-offset-4 decoration-2 decoration-accent"
-                        : "text-foreground hover:text-primary hover:underline hover:underline-offset-4 hover:decoration-2 hover:decoration-accent"
+                        ? "text-primary font-semibold"
+                        : "text-foreground hover:text-primary"
                     )}
                   >
                     {item.label}
@@ -123,7 +127,13 @@ export function Header() {
                 </motion.div>
               ))}
               <div className="mt-8" onClick={() => setIsMobileMenuOpen(false)}>
-                <RidgeButton href="/contact">Get Started</RidgeButton>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:opacity-95 transition-opacity"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Link>
               </div>
             </nav>
           </motion.div>

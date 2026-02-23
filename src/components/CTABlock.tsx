@@ -6,8 +6,8 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 
 export function CTABlock() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/10 to-background" />
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-section-alt">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

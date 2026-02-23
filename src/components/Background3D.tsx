@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const BACKGROUND = "#001322";
-const ACCENT = "#2DA0FF";
-const ACCENT_BRIGHT = "#5eb8ff";
+/* Theme-aware: canvas is transparent; dots/lines use accent with low opacity for light theme */
+const ACCENT = "#14b8a6";
+const LINE_ALPHA = 0.08;
+const DOT_GLOW_ALPHA = 0.06;
 
 interface Dot {
   x: number;
@@ -27,8 +28,8 @@ function getConfig() {
     opacityRange: 0.2,
     maxDist: 160,
     lineWidth: 0.5,
-    lineAlpha: 0.14,
-    dotGlowAlpha: 0.1,
+    lineAlpha: LINE_ALPHA,
+    dotGlowAlpha: DOT_GLOW_ALPHA,
   };
 }
 
@@ -85,14 +86,13 @@ export function Background3D() {
       const cfg = configRef.current;
       const w = window.innerWidth;
       const h = window.innerHeight;
-      ctx.fillStyle = BACKGROUND;
-      ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
 
       time += 0.008;
 
       const dots = dotsRef.current;
 
-      ctx.strokeStyle = ACCENT_BRIGHT;
+      ctx.strokeStyle = ACCENT;
       ctx.lineWidth = cfg.lineWidth;
       for (let i = 0; i < dots.length; i++) {
         for (let j = i + 1; j < dots.length; j++) {
@@ -135,8 +135,8 @@ export function Background3D() {
 
         ctx.beginPath();
         ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = ACCENT_BRIGHT;
-        ctx.globalAlpha = o;
+        ctx.fillStyle = ACCENT;
+        ctx.globalAlpha = o * 0.5;
         ctx.fill();
         ctx.globalAlpha = 1;
       }
@@ -156,7 +156,7 @@ export function Background3D() {
     return (
       <div
         className="fixed inset-0 pointer-events-none overflow-hidden -z-10"
-        style={{ background: "var(--background, #001322)" }}
+        style={{ background: "transparent" }}
       />
     );
   }

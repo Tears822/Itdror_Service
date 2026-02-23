@@ -232,7 +232,7 @@ export function Services() {
 
   return (
     <section id="services" className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-background/10 backdrop-blur-[2px]" aria-hidden />
 
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         <div className="text-center mb-16 lg:mb-20">

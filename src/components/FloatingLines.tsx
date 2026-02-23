@@ -24,7 +24,7 @@ interface FloatingLinesProps {
 
 export function FloatingLines({
   lineCount = 50,
-  colors = ["#2da0ff", "#00d4ff", "#0066cc", "#4dc9ff", "#0080d0", "#1a8fff", "#66ccff", "#99ddff"],
+  colors = ["#14b8a6", "#2dd4bf", "#0d9488", "#5eead4", "#0f766e", "#2dd4bf", "#99f6e4", "#ccfbf1"],
   speed = 1,
   className = "",
   opacity = 0.6,

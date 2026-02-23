@@ -75,7 +75,7 @@ export function StatsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative py-20 lg:py-28 overflow-hidden">
+    <section ref={ref} className="relative py-20 lg:py-28 overflow-hidden bg-section-alt">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(45,160,255,0.08),transparent)]" />
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">

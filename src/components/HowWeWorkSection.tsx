@@ -33,9 +33,8 @@ const steps = [
 
 export function HowWeWorkSection() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-background/50" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(45,160,255,0.04),transparent_50%)]" />
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-background">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(14,165,233,0.06),transparent_50%)]" />
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
