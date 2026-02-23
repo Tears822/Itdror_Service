@@ -295,7 +295,7 @@ export function ChatWidget() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/50 mb-4"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-black/12 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 mb-4"
                 required
               />
               {error && (

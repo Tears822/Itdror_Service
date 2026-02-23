@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle, MessageCircle, ArrowRight } from "lucide-react";
@@ -11,6 +12,7 @@ const benefits = [
 ];
 
 export function Hero() {
+  const [videoError, setVideoError] = useState(false);
 
   return (
     <section
@@ -18,17 +20,20 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-section-alt via-background to-section-alt"
     >
       {/* Optional video background – light overlay for readability */}
-      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-30"
-        >
-          <source src="/assets/hero.mp4" type="video/mp4" />
-        </video>
-      </div>
+      {!videoError && (
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-30"
+            onError={() => setVideoError(true)}
+          >
+            <source src="/assets/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
       <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/75 to-white/90 pointer-events-none" style={{ zIndex: 1 }} />
 
       <div className="relative max-w-content mx-auto px-6 sm:px-8 lg:px-12 text-center pt-28 sm:pt-24 lg:pt-32 pb-12" style={{ zIndex: 10 }}>
