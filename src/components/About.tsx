@@ -54,7 +54,7 @@ const teamMembers = [
   { name: "Jason Taylor", role: "Project Manager", image: "/assets/team/jason-taylor.jpg" },
   { name: "Andrew Foster", role: "Backend Engineer", image: "/assets/team/andrew-foster.jpg" },
   { name: "Ryan Anderson", role: "Full Stack Developer", image: "/assets/team/ryan-anderson.jpg" },
-  { name: "Matthew Clark", role: "Support Specialist", image: "/assets/team/matthew-clark.jpg" },
+  { name: "Matthew Clark", role: "QA Engineer", image: "/assets/team/matthew-clark.jpg" },
   { name: "Brian Cooper", role: "Technical Consultant", image: "/assets/team/brian-cooper.jpg" },
 ];
 
