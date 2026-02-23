@@ -221,7 +221,6 @@ export const serviceIdToPortfolioKey: Record<string, string> = {
   legaltech: "Web Development",
   travel: "Web Development",
   erp: "Web Development",
-  cybersecurity: "Cloud Services",
   "cloud-devops": "DevOps & CI/CD",
   "ai-ml": "AI Solutions",
   blockchain: "Web Development",

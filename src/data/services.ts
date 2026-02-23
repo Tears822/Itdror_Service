@@ -35,9 +35,9 @@ export const serviceCategories: ServiceCategory[] = [
   { id: "emerging", label: "Emerging & High-Growth" },
   { id: "smart-connected", label: "Smart & Connected Systems" },
   { id: "mobility", label: "Mobility & Transportation" },
-  { id: "retail", label: "RetailTech & POS" },
-  { id: "hrtech", label: "HR & Workforce Tech" },
-  { id: "climate", label: "ClimateTech & Sustainability" },
+  { id: "retail", label: "Retail & POS" },
+  { id: "hrtech", label: "HR & Workforce" },
+  { id: "climate", label: "Climate & Sustainability" },
   { id: "support", label: "Application Support" },
 ];
 
@@ -68,7 +68,6 @@ const service2Images: Partial<Record<string, string>> = {
   legaltech: `${SERVICE2}/legal_tech.jpg`,
   travel: `${SERVICE2}/travel_hospitality.avif`,
   erp: `${SERVICE2}/erp_enterprise Systems.jpg`,
-  cybersecurity: `${SERVICE2}/cybersecurity_solutions.jpg`,
   "cloud-devops": `${SERVICE2}/cloud_devops.avif`,
   "ai-ml": `${SERVICE2}/ai_machine_learning.jpg`,
   blockchain: `${SERVICE2}/blockchain.jpg`,
@@ -88,7 +87,7 @@ function serviceImage(id: string, fallback: string): string {
 export const serviceList: ServiceItem[] = [
   // Core Business & Consumer
   { id: "saas", categoryId: "core-business", title: "SaaS (Software as a Service)", description: "Subscription-based web apps: CRM, project management, and business tools.", features: ["Multi-tenant architecture", "Subscription & billing (Stripe, etc.)", "Role-based access", "Analytics dashboards", "API-first design"], image: serviceImage("saas", IMG.web), iconKey: "globe" },
-  { id: "fintech", categoryId: "core-business", title: "FinTech", description: "Payments, digital banking, crypto, lending, and trading platforms.", features: ["Payment gateways & PSP integration", "KYC/AML flows", "Real-time transactions", "Compliance & reporting", "Secure data handling"], image: serviceImage("fintech", IMG.web), iconKey: "credit-card" },
+  { id: "fintech", categoryId: "core-business", title: "Finance", description: "Payments, digital banking, crypto, lending, and trading platforms.", features: ["Payment gateways & PSP integration", "KYC/AML flows", "Real-time transactions", "Compliance & reporting", "Secure data handling"], image: serviceImage("fintech", IMG.web), iconKey: "credit-card" },
   { id: "ecommerce", categoryId: "core-business", title: "eCommerce", description: "Online stores, marketplaces, checkout, and logistics systems.", features: ["Storefronts & marketplaces", "Checkout & payments", "Inventory & orders", "Shipping & logistics", "Admin & reporting"], image: serviceImage("ecommerce", IMG.web), iconKey: "shopping-cart" },
   { id: "food-delivery", categoryId: "core-business", title: "Food Delivery & Logistics", description: "Ordering, routing, driver management, and real-time tracking.", features: ["Order & menu management", "Driver app & dispatch", "Real-time tracking", "Payments & payouts", "Restaurant dashboards"], image: serviceImage("food-delivery", IMG.mobile), iconKey: "utensils" },
   { id: "marketplace", categoryId: "core-business", title: "Marketplace Platforms", description: "Multi-vendor ecosystems (e.g. Airbnb, Fiverr-style).", features: ["Vendor onboarding & profiles", "Search & discovery", "Bookings & payments", "Reviews & trust", "Commission & payouts"], image: serviceImage("marketplace", IMG.web), iconKey: "store" },
@@ -97,14 +96,13 @@ export const serviceList: ServiceItem[] = [
   { id: "streaming", categoryId: "consumer-social", title: "Streaming & Media", description: "Video/audio delivery and live streaming.", features: ["Live & VOD streaming", "CDN & transcoding", "Player & DRM", "Analytics", "Monetization"], image: serviceImage("streaming", IMG.web), iconKey: "tv" },
   { id: "dating", categoryId: "consumer-social", title: "Dating & Community Apps", description: "Matching algorithms, chat, and moderation.", features: ["Matching algorithms", "Chat & video", "Safety & moderation", "Discovery & filters", "Subscriptions"], image: serviceImage("dating", IMG.mobile), iconKey: "heart" },
   // Industry-Specific
-  { id: "healthtech", categoryId: "industry", title: "HealthTech", description: "Telemedicine, patient portals, and medical data systems.", features: ["Telemedicine & video visits", "Patient portals", "HIPAA-compliant data", "EHR integration", "Scheduling & reminders"], image: serviceImage("healthtech", IMG.web), iconKey: "stethoscope" },
-  { id: "edtech", categoryId: "industry", title: "EdTech", description: "Learning platforms, course systems, and AI tutors.", features: ["LMS & course delivery", "Assessments & progress", "AI tutors & personalization", "Certifications", "Collaboration tools"], image: serviceImage("edtech", IMG.web), iconKey: "graduation-cap" },
-  { id: "proptech", categoryId: "industry", title: "PropTech (Real Estate)", description: "Property listings, smart home, and transaction flows.", features: ["Listings & search", "Virtual tours", "Document & e-sign", "Smart home integration", "Agent tools"], image: serviceImage("proptech", IMG.web), iconKey: "home" },
-  { id: "legaltech", categoryId: "industry", title: "LegalTech", description: "Contract automation, compliance, and document analysis.", features: ["Contract drafting & templates", "E-sign & workflow", "Compliance tracking", "Document analysis", "Case management"], image: serviceImage("legaltech", IMG.web), iconKey: "scale" },
+  { id: "healthtech", categoryId: "industry", title: "Health", description: "Telemedicine, patient portals, and medical data systems.", features: ["Telemedicine & video visits", "Patient portals", "HIPAA-compliant data", "EHR integration", "Scheduling & reminders"], image: serviceImage("healthtech", IMG.web), iconKey: "stethoscope" },
+  { id: "edtech", categoryId: "industry", title: "Education", description: "Learning platforms, course systems, and AI tutors.", features: ["LMS & course delivery", "Assessments & progress", "AI tutors & personalization", "Certifications", "Collaboration tools"], image: serviceImage("edtech", IMG.web), iconKey: "graduation-cap" },
+  { id: "proptech", categoryId: "industry", title: "Real Estate", description: "Property listings, smart home, and transaction flows.", features: ["Listings & search", "Virtual tours", "Document & e-sign", "Smart home integration", "Agent tools"], image: serviceImage("proptech", IMG.web), iconKey: "home" },
+  { id: "legaltech", categoryId: "industry", title: "Legal", description: "Contract automation, compliance, and document analysis.", features: ["Contract drafting & templates", "E-sign & workflow", "Compliance tracking", "Document analysis", "Case management"], image: serviceImage("legaltech", IMG.web), iconKey: "scale" },
   { id: "travel", categoryId: "industry", title: "Travel & Hospitality", description: "Booking systems and itinerary management.", features: ["Booking engines", "Inventory & rates", "Itineraries", "Loyalty programs", "Channel managers"], image: serviceImage("travel", IMG.web), iconKey: "plane" },
   // Enterprise & Infrastructure
   { id: "erp", categoryId: "enterprise", title: "ERP & Enterprise Systems", description: "Business operations, HR, inventory, accounting.", features: ["HR & payroll", "Inventory & supply chain", "Accounting & finance", "Reporting & BI", "Integrations"], image: serviceImage("erp", IMG.web), iconKey: "building" },
-  { id: "cybersecurity", categoryId: "enterprise", title: "Cybersecurity Solutions", description: "Identity, threat detection, encryption.", features: ["Identity & access (IAM)", "Threat detection", "Encryption & key management", "Compliance (SOC2, etc.)", "Audit logging"], image: serviceImage("cybersecurity", IMG.cloud), iconKey: "shield" },
   { id: "cloud-devops", categoryId: "enterprise", title: "Cloud & DevOps", description: "Infrastructure automation and monitoring.", features: ["AWS/Azure/GCP", "CI/CD pipelines", "Containers & Kubernetes", "Monitoring & alerting", "IaC (Terraform)"], image: serviceImage("cloud-devops", IMG.cloud), iconKey: "cloud" },
   // Emerging
   { id: "ai-ml", categoryId: "emerging", title: "AI & Machine Learning", description: "AI assistants, predictive analytics, automation.", features: ["LLM & chatbot integration", "Predictive models", "Computer vision", "NLP", "ML pipelines"], image: serviceImage("ai-ml", IMG.ai), iconKey: "bot" },
@@ -113,9 +111,9 @@ export const serviceList: ServiceItem[] = [
   // Smart & Connected
   { id: "smart-city", categoryId: "smart-connected", title: "Smart City Solutions", description: "Traffic, parking, surveillance, environmental monitoring.", features: ["Traffic management", "Smart parking", "Surveillance & safety", "Environmental monitoring", "Data analytics"], image: serviceImage("smart-city", IMG.cloud), iconKey: "building-2" },
   { id: "mobility", categoryId: "mobility", title: "Mobility & Ride-Sharing", description: "Ride-hailing, fleet management, EV charging.", features: ["Ride-hailing apps", "Fleet management", "Route optimization", "EV charging networks", "Autonomous support"], image: serviceImage("mobility", IMG.mobile), iconKey: "car" },
-  { id: "retailtech", categoryId: "retail", title: "RetailTech & POS", description: "POS, inventory, self-checkout, omnichannel.", features: ["Point-of-sale systems", "Inventory automation", "Self-checkout kiosks", "Customer analytics", "Omnichannel"], image: serviceImage("retailtech", IMG.web), iconKey: "barcode" },
-  { id: "hrtech", categoryId: "hrtech", title: "HRTech & Workforce", description: "Recruitment, payroll, performance, remote tools.", features: ["Recruitment & ATS", "Payroll & benefits", "Performance analytics", "Remote workforce tools", "Employee portals"], image: serviceImage("hrtech", IMG.web), iconKey: "users" },
-  { id: "climatetech", categoryId: "climate", title: "ClimateTech & Sustainability", description: "Carbon tracking, energy, ESG reporting.", features: ["Carbon tracking", "Energy optimization", "Renewable monitoring", "ESG reporting", "Sustainable supply chain"], image: serviceImage("climatetech", IMG.web), iconKey: "leaf" },
+  { id: "retailtech", categoryId: "retail", title: "Retail & POS", description: "POS, inventory, self-checkout, omnichannel.", features: ["Point-of-sale systems", "Inventory automation", "Self-checkout kiosks", "Customer analytics", "Omnichannel"], image: serviceImage("retailtech", IMG.web), iconKey: "barcode" },
+  { id: "hrtech", categoryId: "hrtech", title: "HR & Workforce", description: "Recruitment, payroll, performance, remote tools.", features: ["Recruitment & ATS", "Payroll & benefits", "Performance analytics", "Remote workforce tools", "Employee portals"], image: serviceImage("hrtech", IMG.web), iconKey: "users" },
+  { id: "climatetech", categoryId: "climate", title: "Climate & Sustainability", description: "Carbon tracking, energy, ESG reporting.", features: ["Carbon tracking", "Energy optimization", "Renewable monitoring", "ESG reporting", "Sustainable supply chain"], image: serviceImage("climatetech", IMG.web), iconKey: "leaf" },
 ];
 
 export function getServicesByCategory(categoryId: ServiceCategoryId): ServiceItem[] {

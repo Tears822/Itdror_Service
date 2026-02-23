@@ -55,7 +55,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">2. Services Description</h2>
               <p className="text-muted leading-relaxed mb-4">
-                ITDor Services provides IT consulting, network setup, cybersecurity, cloud solutions, software development, and related technology services. We reserve the right to modify, suspend, or discontinue any service at any time without prior notice.
+                ITDor Services provides IT consulting, network setup, cloud solutions, software development, and related technology services. We reserve the right to modify, suspend, or discontinue any service at any time without prior notice.
               </p>
             </section>
 
