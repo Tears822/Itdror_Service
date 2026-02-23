@@ -252,7 +252,7 @@ export function Services() {
 
         {/* Application Support + Software Development — book-style cards with "+" */}
         <div id="application-support" className="mb-20 scroll-mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-10 items-center max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-10 items-center justify-items-center md:justify-items-stretch max-w-5xl mx-auto">
             <ServiceBookCard
               title="Application Support Specialist"
               description="We manage, maintain, and troubleshoot your business software—clear communication and fast resolution when issues arise."

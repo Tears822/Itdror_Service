@@ -105,7 +105,7 @@ export function ServicesTeaser() {
             One team: we build your applications and support them after launch.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-8 items-center section-3d">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-8 items-center justify-items-center md:justify-items-stretch section-3d">
           {offeringDetails.map((detail, i) => (
             <React.Fragment key={detail.title}>
               <motion.div
