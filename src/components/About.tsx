@@ -40,6 +40,11 @@ const values = [
   "Transparent pricing",
 ];
 
+const leadershipTeam = [
+  { name: "Kerry Dor", role: "CEO", image: "/assets/team/kerry-dor.jpeg" },
+  { name: "Jason Liu", role: "CTO", image: "/assets/team/jason-liu.webp" },
+];
+
 const teamMembers = [
   { name: "James Wilson", role: "Lead Developer", image: "/assets/team/james-wilson.webp" },
   { name: "Robert Mitchell", role: "Product Manager", image: "/assets/team/robert-mitchell.webp" },
@@ -52,6 +57,38 @@ const teamMembers = [
   { name: "Matthew Clark", role: "Support Specialist", image: "/assets/team/matthew-clark.jpg" },
   { name: "Brian Cooper", role: "Technical Consultant", image: "/assets/team/brian-cooper.jpg" },
 ];
+
+function TeamCard({
+  member,
+  index,
+  delay = 0,
+}: {
+  member: (typeof teamMembers)[0] | (typeof leadershipTeam)[0];
+  index: number;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: delay + index * 0.08 }}
+      className="flex flex-col items-center text-center"
+    >
+      <div className="relative w-full aspect-square max-w-[180px] mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 mb-4 ring-2 ring-transparent hover:ring-accent/40 hover:border-accent/30 transition-all duration-300">
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 180px"
+          className="object-cover"
+        />
+      </div>
+      <h3 className="font-semibold text-foreground">{member.name}</h3>
+      <p className="text-sm text-muted">{member.role}</p>
+    </motion.div>
+  );
+}
 
 export function About() {
   return (
@@ -184,28 +221,16 @@ export function About() {
           <p className="max-w-2xl mx-auto text-lg text-muted text-center mb-12">
             Experienced developers, designers, and support specialists working together to build and maintain your applications.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 lg:gap-8">
+          {/* Row 1: CEO & CTO centered, same card size as others */}
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-10 mb-10 lg:mb-12 [&>div]:min-w-[180px] [&>div]:w-[180px]">
+            {leadershipTeam.map((member, index) => (
+              <TeamCard key={member.name} member={member} index={index} />
+            ))}
+          </div>
+          {/* Rows 2 & 3: rest of team */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
             {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="relative w-full aspect-square max-w-[180px] mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 mb-4 ring-2 ring-transparent hover:ring-accent/40 hover:border-accent/30 transition-all duration-300">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 180px"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-semibold text-foreground">{member.name}</h3>
-                <p className="text-sm text-muted">{member.role}</p>
-              </motion.div>
+              <TeamCard key={member.name} member={member} index={index} delay={0.15} />
             ))}
           </div>
         </motion.div>
