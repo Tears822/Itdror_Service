@@ -18,16 +18,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
+  const url = `${siteUrl}/blog/${slug}`;
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `${siteUrl}/blog/${slug}` },
+    alternates: { canonical: url },
     openGraph: {
       title: `${post.title} | IT Dor Services Blog`,
       description: post.excerpt,
-      url: `${siteUrl}/blog/${slug}`,
+      url,
       type: "article",
       publishedTime: post.date,
+      ...(post.image && {
+        images: [{ url: post.image, width: 800, height: 420, alt: post.title }],
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | IT Dor Services Blog`,
+      description: post.excerpt,
+      ...(post.image && { images: [post.image] }),
     },
   };
 }
@@ -120,6 +130,41 @@ function renderBody(body: string) {
   return elements;
 }
 
+function ArticleJsonLd({
+  post,
+  slug,
+}: {
+  post: { title: string; excerpt: string; date: string; author: string; image?: string };
+  slug: string;
+}) {
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: post.author,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "IT Dor Services",
+      logo: { "@type": "ImageObject", url: `${siteUrl}/assets/logo.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/blog/${slug}` },
+    ...(post.image && { image: post.image }),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+    />
+  );
+}
+
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
@@ -127,6 +172,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
+      <ArticleJsonLd post={post} slug={slug} />
       <Background3D />
       <Header />
       <main className="min-h-screen pt-28 md:pt-32 pb-16">

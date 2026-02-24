@@ -55,8 +55,44 @@ const websiteSchema = {
   },
 };
 
+const professionalServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "IT Dor Services",
+  url: siteUrl,
+  description:
+    "Custom software development and application support. We build your applications and support them after launch—web, mobile, AI, cloud, and dedicated application support.",
+  image: `${siteUrl}/assets/logo.png`,
+  logo: `${siteUrl}/assets/logo.png`,
+  areaServed: "Worldwide",
+  serviceType: [
+    "Software Development",
+    "Application Support",
+    "Web Development",
+    "Mobile App Development",
+    "Cloud & DevOps",
+    "UI/UX Design",
+  ],
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Boston",
+    addressRegion: "MA",
+    addressCountry: "US",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+1-617-712-9076",
+    contactType: "sales",
+    email: "sales@itdorservices.com",
+    areaServed: "Worldwide",
+    availableLanguage: "English",
+    url: `${siteUrl}/contact`,
+  },
+};
+
 export function JsonLd() {
-  const jsonLd = [organizationSchema, websiteSchema];
+  const jsonLd = [organizationSchema, websiteSchema, professionalServiceSchema];
   return (
     <script
       type="application/ld+json"

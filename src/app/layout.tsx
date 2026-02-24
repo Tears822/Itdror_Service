@@ -29,7 +29,12 @@ export const metadata: Metadata = {
     "IT support",
     "remote development",
     "Boston IT services",
+    "custom software",
+    "SaaS development",
+    "application support after launch",
   ],
+  referrer: "origin-when-cross-origin",
+  formatDetection: { telephone: true, email: true },
   authors: [{ name: "IT Dor Services", url: siteUrl }],
   creator: "IT Dor Services",
   publisher: "IT Dor Services",
@@ -56,9 +61,9 @@ export const metadata: Metadata = {
       "Software development and application support in one team. Build and support your applications with 1 month free support after launch.",
     images: [
       {
-        url: "/assets/logo.png",
+        url: "/assets/og-image.png",
         width: 1200,
-        height: 400,
+        height: 630,
         alt: "IT Dor Services - Software Development & Application Support",
       },
     ],
@@ -68,7 +73,7 @@ export const metadata: Metadata = {
     title: "IT Dor Services | Software Development & Application Support",
     description:
       "Software development and application support in one team. Remote delivery worldwide.",
-    images: ["/assets/logo.png"],
+    images: ["/assets/og-image.png"],
   },
   alternates: {
     canonical: siteUrl,
