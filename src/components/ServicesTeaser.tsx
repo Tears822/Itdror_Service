@@ -23,6 +23,7 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/application_support.avif",
     category: "support",
     serviceId: "application-support",
+    price: "From $2,500/month",
   },
   {
     icon: Code2,
@@ -38,6 +39,7 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/software_development.avif",
     category: "dev",
     serviceId: "software-development",
+    price: "From $25,000 per project",
   },
   {
     icon: Palette,
@@ -53,6 +55,7 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/ui_ux_design.avif",
     category: "dev",
     serviceId: "ui-ux-design",
+    price: "From $12,000 per project",
   },
   {
     icon: Cloud,
@@ -68,6 +71,7 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/cloud_devops.avif",
     category: "dev",
     serviceId: "cloud-devops",
+    price: "From $18,000 per project or $3,000/month",
   },
 ];
 

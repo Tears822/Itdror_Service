@@ -16,6 +16,8 @@ export interface ServiceDetail {
   image: string;
   category?: "it" | "dev" | "support";
   serviceId?: string;
+  /** Display price, e.g. "From $2,500/month" or "From $25,000 per project" */
+  price?: string;
 }
 
 interface ServiceDetailModalProps {
@@ -168,8 +170,16 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                   <p className="text-muted leading-relaxed text-[15px]">{service.description}</p>
                 </section>
 
+                {service.price && (
+                  <section>
+                    <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Price</p>
+                    <p className="text-xl font-semibold text-foreground">{service.price}</p>
+                    <p className="text-xs text-muted mt-1">Final quote based on scope. Contact us for a detailed estimate.</p>
+                  </section>
+                )}
+
                 <section>
-                  <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">What we offer</p>
+                  <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Included features</p>
                   <ul className="space-y-3">
                     {service.features.map((feature, i) => (
                       <li key={feature} className="flex items-start gap-3 group">
