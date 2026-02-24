@@ -2778,7 +2778,7 @@ footer .social-card-text {
   transform: translate(6px, -6px);
 }
 
-/* Loader / Spinner (SVG frame) */
+/* Loader / Spinner (SVG frame) – transparent so layout gradient/radial shows (same as landing) */
 .loader-wrapper {
   position: fixed;
   inset: 0;
@@ -2786,7 +2786,7 @@ footer .social-card-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--background);
+  background: transparent;
   isolation: isolate;
   color: var(--accent);
 }
