@@ -112,7 +112,7 @@ const applicationSupportService: ServiceDetail = {
   image: "/assets/service2/application_support.avif",
   category: "support",
   serviceId: "application-support",
-  price: "From $2,500/month",
+  price: "From $850/month",
 };
 
 const softwareDevelopmentService: ServiceDetail = {
@@ -129,7 +129,7 @@ const softwareDevelopmentService: ServiceDetail = {
   ],
   image: "/assets/service2/software_development.avif",
   category: "dev",
-  price: "From $25,000 per project",
+  price: "From $8,500 per project",
 };
 
 const CheckIcon = () => (
