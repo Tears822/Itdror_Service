@@ -47,7 +47,7 @@ export function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <Link
               href="/"
-              className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0 -mt-3"
+              className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0"
             >
               <Image
                 src="/assets/logo.png"

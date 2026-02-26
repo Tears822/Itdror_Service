@@ -202,22 +202,44 @@ export default function AdminConversationPage() {
             No messages yet. Say hello.
           </p>
         ) : (
-          messages.map((m) => (
-            <div
-              key={m.id}
-              className={`flex ${m.sender === "admin" ? "justify-end" : "justify-start"}`}
-            >
+          messages.map((m) => {
+            const isAdmin = m.sender === "admin";
+            const avatarLabel = isAdmin ? "You" : (email ? email.slice(0, 2).toUpperCase() : "??");
+            return (
               <div
-                className={`max-w-[85%] rounded-2xl px-4 py-2 ${
-                  m.sender === "admin"
-                    ? "bg-accent/20 text-foreground"
-                    : "bg-white/10 text-muted"
-                }`}
+                key={m.id}
+                className={`flex items-end gap-2 ${isAdmin ? "justify-start" : "justify-end"}`}
               >
-                <p className="text-sm whitespace-pre-wrap">{m.content}</p>
+                {isAdmin ? (
+                  <>
+                    <div
+                      className="w-9 h-9 rounded-full bg-accent/30 shrink-0 flex items-center justify-center text-xs font-semibold text-foreground"
+                      aria-hidden
+                      title="You"
+                    >
+                      {avatarLabel}
+                    </div>
+                    <div className="max-w-[85%] rounded-2xl px-4 py-2 bg-accent/20 text-foreground">
+                      <p className="text-sm whitespace-pre-wrap">{m.content}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="max-w-[85%] rounded-2xl px-4 py-2 bg-white/10 text-muted">
+                      <p className="text-sm whitespace-pre-wrap">{m.content}</p>
+                    </div>
+                    <div
+                      className="w-9 h-9 rounded-full bg-white/20 shrink-0 flex items-center justify-center text-xs font-semibold text-foreground"
+                      aria-hidden
+                      title={email}
+                    >
+                      {avatarLabel}
+                    </div>
+                  </>
+                )}
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 

@@ -40,17 +40,17 @@ export function Footer() {
         {/* Main Footer Content – Consultport-style columns */}
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-12 mb-14 items-start">
           {/* Brand + Get in touch */}
-          <div className="lg:col-span-2 min-w-0 overflow-visible -mt-1">
+          <div className="lg:col-span-2 min-w-0 overflow-visible mt-3">
             <Link
               href="/"
               className="inline-block mb-1 -mt-2 focus:outline-none focus:ring-1 focus:ring-teal-400/40 focus:ring-inset rounded"
             >
               <Image
-                src="/assets/logo.png"
+                src="/assets/logo_white.png"
                 alt="ITDor Services Logo"
                 width={800}
                 height={200}
-                className="h-32 w-auto max-w-[280px] object-contain opacity-95 hover:opacity-100 transition-opacity outline-none border-0"
+                className="h-16 w-auto max-w-[280px] object-contain opacity-95 hover:opacity-100 transition-opacity outline-none border-0"
               />
             </Link>
             <p className="text-teal-200/80 text-sm leading-relaxed mb-6 max-w-xs">

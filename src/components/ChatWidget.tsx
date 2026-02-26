@@ -160,8 +160,9 @@ export function ChatWidget() {
     const channel = pusher.subscribe(`chat-${sessionId}`);
     channel.bind("new-message", (payload: Message) => {
       setMessages((prev) => {
-        if (prev.some((m) => m.id === payload.id)) return prev;
-        return [...prev, payload];
+        const byId = new Map(prev.map((m) => [m.id, m]));
+        byId.set(payload.id, payload);
+        return Array.from(byId.values()).sort((a, b) => a.createdAt - b.createdAt);
       });
     });
     return () => {
@@ -279,7 +280,11 @@ export function ChatWidget() {
         return;
       }
       chatClientLog("Messages: sent", data.id);
-      setMessages((prev) => [...prev, data]);
+      setMessages((prev) => {
+        const byId = new Map(prev.map((m) => [m.id, m]));
+        byId.set(data.id, data);
+        return Array.from(byId.values()).sort((a, b) => a.createdAt - b.createdAt);
+      });
     } catch (err) {
       chatClientError("Messages: fetch error", undefined, err);
       setInput(text);
@@ -362,12 +367,12 @@ export function ChatWidget() {
                     className={`w-full flex items-end gap-2 ${m.sender === "customer" ? "justify-start" : "justify-start flex-row-reverse"}`}
                   >
                     {m.sender === "admin" ? (
-                      <div className="w-8 h-8 rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center">
                         <Image
                           src="/assets/favicon.png"
-                          alt=""
-                          width={32}
-                          height={32}
+                          alt="Support"
+                          width={48}
+                          height={48}
                           className="w-full h-full object-cover"
                         />
                       </div>
