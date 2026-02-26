@@ -213,7 +213,7 @@ export default function AdminConversationPage() {
                 {isAdmin ? (
                   <>
                     <div
-                      className="w-9 h-9 rounded-full bg-accent/30 shrink-0 flex items-center justify-center text-xs font-semibold text-foreground"
+                      className="w-14 h-14 rounded-full bg-accent/30 shrink-0 flex items-center justify-center text-sm font-semibold text-foreground self-end mt-0.5"
                       aria-hidden
                       title="You"
                     >
@@ -229,7 +229,7 @@ export default function AdminConversationPage() {
                       <p className="text-sm whitespace-pre-wrap">{m.content}</p>
                     </div>
                     <div
-                      className="w-9 h-9 rounded-full bg-white/20 shrink-0 flex items-center justify-center text-xs font-semibold text-foreground"
+                      className="w-14 h-14 rounded-full bg-white/20 shrink-0 flex items-center justify-center text-sm font-semibold text-foreground self-end mt-0.5"
                       aria-hidden
                       title={email}
                     >

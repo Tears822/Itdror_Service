@@ -367,12 +367,12 @@ export function ChatWidget() {
                     className={`w-full flex items-end gap-2 ${m.sender === "customer" ? "justify-start" : "justify-start flex-row-reverse"}`}
                   >
                     {m.sender === "admin" ? (
-                      <div className="w-12 h-12 rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center">
+                      <div className="w-[4.5rem] h-[4.5rem] rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center mt-1 self-end">
                         <Image
                           src="/assets/favicon.png"
                           alt="Support"
-                          width={48}
-                          height={48}
+                          width={72}
+                          height={72}
                           className="w-full h-full object-cover"
                         />
                       </div>
