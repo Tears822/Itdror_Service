@@ -39,9 +39,11 @@ export async function POST(request: NextRequest) {
         email: session.email,
         createdAt: session.createdAt,
       });
-      notifyAdminsNewSession(session.email, session.id).catch((err) =>
-        chatError("Session", "Telegram notify error", err)
-      );
+      try {
+        await notifyAdminsNewSession(session.email, session.id);
+      } catch (err) {
+        chatError("Session", "Telegram notify error", err);
+      }
     }
 
     const messages = getMessages(session.id);

@@ -21,10 +21,12 @@ export async function notifyAdminsNewCustomerMessage(
   const adminIds = getAdminIds();
 
   if (!token) {
+    console.warn("[Telegram] notifyAdminsNewCustomerMessage skipped: TELEGRAM_BOT_TOKEN not set. Add it in Vercel → Project Settings → Environment Variables.");
     chatLog("Telegram", "notifyAdminsNewCustomerMessage skipped: TELEGRAM_BOT_TOKEN not set");
     return;
   }
   if (adminIds.length === 0) {
+    console.warn("[Telegram] notifyAdminsNewCustomerMessage skipped: TELEGRAM_ADMIN_IDS empty or not set. Set to comma-separated chat IDs in Vercel → Environment Variables.");
     chatLog("Telegram", "notifyAdminsNewCustomerMessage skipped: TELEGRAM_ADMIN_IDS empty or not set");
     return;
   }
@@ -63,11 +65,13 @@ export async function notifyAdminsNewCustomerMessage(
             status: res.status,
             body: body.slice(0, 300),
           });
+          console.warn("[Telegram] sendMessage failed:", res.status, body.slice(0, 200));
           return;
         }
         chatLog("Telegram", "sendMessage ok", { chatId: chatId.trim() });
       } catch (err) {
         chatError("Telegram", "sendMessage fetch error", err);
+        console.warn("[Telegram] fetch error:", err);
       }
     })
   );

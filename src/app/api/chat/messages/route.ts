@@ -87,11 +87,15 @@ export async function POST(request: NextRequest) {
     if (sender === "customer") {
       const session = getSession(sessionId);
       if (session) {
-        notifyAdminsNewCustomerMessage(
-          session.email,
-          sessionId,
-          msg.content
-        ).catch((err) => chatError("Messages", "Telegram notify error", err));
+        try {
+          await notifyAdminsNewCustomerMessage(
+            session.email,
+            sessionId,
+            msg.content
+          );
+        } catch (err) {
+          chatError("Messages", "Telegram notify error", err);
+        }
       }
     }
 
