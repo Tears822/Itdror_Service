@@ -8,7 +8,7 @@ const insuranceFeatures = [
     icon: Shield,
     title: "General Liability Insurance",
     description:
-      "Protection against claims of bodily injury or property damage that may occur during service delivery. Covers third-party incidents so your business and clients are protected when we work on-site or with your systems.",
+      "Protection against claims of bodily injury or property damage that may occur during service delivery. Covers third-party incidents so your business and clients are protected when we work on site or with your systems.",
   },
   {
     icon: FileCheck,
@@ -26,7 +26,7 @@ const insuranceFeatures = [
     icon: Users,
     title: "Workers' Compensation",
     description:
-      "Required coverage for employees, providing benefits for work-related injuries or illnesses. Keeps our team protected and meets legal and client requirements when we work with you.",
+      "Required coverage for employees, providing benefits for work related injuries or illnesses. Keeps our team protected and meets legal and client requirements when we work with you.",
   },
 ];
 

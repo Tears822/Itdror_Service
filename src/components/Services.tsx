@@ -279,11 +279,11 @@ export function Services() {
             Software Development by Domain
           </h3>
           <p className="max-w-2xl text-muted text-sm mb-2">
-            Custom web, mobile, AI, and cloud solutions—with modern stacks and
+            Custom web, mobile, AI, and cloud solutions with modern stacks and
             proven delivery. Filter by category or search below.
           </p>
           <p className="max-w-2xl text-foreground/90 font-medium text-sm mb-8">
-            Software development projects start from $3K. Every project is case by case—get in touch for a detailed quote.
+            Software development projects start from $3K. Every project is case by case get in touch for a detailed quote.
           </p>
 
           {/* Search + Category filter */}
