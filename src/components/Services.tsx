@@ -129,7 +129,7 @@ const softwareDevelopmentService: ServiceDetail = {
   ],
   image: "/assets/service2/software_development.avif",
   category: "dev",
-  price: "From $8,500 per project",
+  price: "From $3000 per project",
 };
 
 const CheckIcon = () => (

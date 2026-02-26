@@ -47,14 +47,14 @@ export function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <Link
               href="/"
-              className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0"
+              className="flex items-center gap-2 md:gap-3 shrink-0 min-w-0 -mt-3"
             >
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
-                width={200}
-                height={56}
-                className="object-contain h-12 w-auto max-h-full"
+                width={400}
+                height={112}
+                className="object-contain h-14 w-auto max-h-full outline-none border-0"
                 priority
               />
             </Link>

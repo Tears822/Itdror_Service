@@ -35,19 +35,22 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative pt-16 pb-8 overflow-hidden bg-gradient-to-b from-teal-950 to-teal-950/95 text-white border-t border-teal-800/50">
-      <div className="relative z-10 max-w-content mx-auto px-6 lg:px-12">
+    <footer className="relative pt-8 pb-8 overflow-x-hidden bg-gradient-to-b from-teal-950 to-teal-950/95 text-white border-t border-teal-800/50">
+      <div className="relative z-10 max-w-content mx-auto px-6 sm:px-8 lg:px-12">
         {/* Main Footer Content – Consultport-style columns */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-12 mb-14">
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-12 mb-14 items-start">
           {/* Brand + Get in touch */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-5">
+          <div className="lg:col-span-2 min-w-0 overflow-visible -mt-1">
+            <Link
+              href="/"
+              className="inline-block mb-1 -mt-2 focus:outline-none focus:ring-1 focus:ring-teal-400/40 focus:ring-inset rounded"
+            >
               <Image
                 src="/assets/logo.png"
                 alt="ITDor Services Logo"
-                width={1200}
-                height={400}
-                className="h-8 w-auto object-contain opacity-95 hover:opacity-100 transition-opacity"
+                width={800}
+                height={200}
+                className="h-32 w-auto max-w-[280px] object-contain opacity-95 hover:opacity-100 transition-opacity outline-none border-0"
               />
             </Link>
             <p className="text-teal-200/80 text-sm leading-relaxed mb-6 max-w-xs">

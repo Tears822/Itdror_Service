@@ -14,11 +14,11 @@ const posts: Post[] = [
     title: "Why Application Support Matters After Launch",
     excerpt:
       "Software doesn't stop at deployment. Learn how dedicated application support keeps your product running smoothly and your users happy.",
-    date: "2025-02-15",
+    date: "2026-02-15",
     author: "IT Dor Services",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
     body: `
-Application support is often an afterthought—until something breaks. At IT Dor Services, we treat support as part of the product: when we build your application, we stay with you after launch.
+Application support is often an afterthought until something breaks. At IT Dor Services, we treat support as part of the product: when we build your application, we stay with you after launch.
 
 **What application support covers**
 
@@ -29,7 +29,7 @@ Application support is often an afterthought—until something breaks. At IT Dor
 
 **Why one team for build and support**
 
-When the same team that built the app also supports it, there's no handoff friction. We know the architecture, the decisions, and the trade-offs. That means faster resolution and fewer misunderstandings.
+When the same team that built the app also supports it, there's no handoff friction. We know the architecture, the decisions, and the trade offs. That means faster resolution and fewer misunderstandings.
 
 We offer 1 month of free application support after every launch, with ongoing support available. If you're planning a new build or struggling with support for an existing app, get in touch.
     `.trim(),
@@ -39,7 +39,7 @@ We offer 1 month of free application support after every launch, with ongoing su
     title: "Modern Stacks for Reliable Software",
     excerpt:
       "How we choose technologies that scale, stay maintainable, and keep your project on track for the long term.",
-    date: "2025-02-10",
+    date: "2026-02-10",
     author: "IT Dor Services",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     body: `
@@ -64,7 +64,7 @@ If you're starting a new project or refactoring an old one, we can help you choo
     title: "One Team: Development and Support Together",
     excerpt:
       "Why combining software development with application support in a single team leads to better outcomes and fewer headaches.",
-    date: "2025-02-05",
+    date: "2026-02-05",
     author: "IT Dor Services",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
     body: `
@@ -89,14 +89,14 @@ Whether you're planning a new build or need ongoing support for an existing appl
   },
   {
     slug: "when-to-choose-custom-software",
-    title: "When to Choose Custom Software Over Off-the-Shelf",
+    title: "When to Choose Custom Software Over Off the Shelf",
     excerpt:
       "Off-the-shelf tools are great—until they're not. Here's when it makes sense to invest in custom development.",
-    date: "2025-01-28",
+    date: "2026-01-28",
     author: "IT Dor Services",
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
     body: `
-Not every business need requires custom software. But when processes are unique, workflows are complex, or off-the-shelf tools keep hitting limits, custom development can be the right move.
+Not every business need requires custom software. But when processes are unique, workflows are complex, or off the shelf tools keep hitting limits, custom development can be the right move.
 
 **Signs custom might be right**
 
@@ -115,11 +115,11 @@ We build custom web, mobile, and cloud solutions with modern stacks. You get a p
     title: "Remote Delivery Without the Headaches",
     excerpt:
       "How we deliver software and support remotely while keeping communication clear and projects on track.",
-    date: "2025-01-20",
+    date: "2026-01-20",
     author: "IT Dor Services",
     image: "/assets/service2/remote_delivery.jpg",
     body: `
-We work remotely with clients worldwide. That doesn't mean you get less visibility or slower communication—we structure projects so you always know where things stand.
+We work remotely with clients worldwide. That doesn't mean you get less visibility or slower communication we structure projects so you always know where things stand.
 
 **How we keep it smooth**
 
@@ -128,7 +128,7 @@ We work remotely with clients worldwide. That doesn't mean you get less visibili
 - **Application support included** – After launch, the same team that built the app is there for training, bugs, and questions.
 - **Clear documentation** – So your team (and ours) can work from the same playbook.
 
-If you're considering a remote development and support partner, we'd be glad to talk. Same-day response on consultations—get in touch to get started.
+If you're considering a remote development and support partner, we'd be glad to talk. Same-day response on consultations get in touch to get started.
     `.trim(),
   },
 ];

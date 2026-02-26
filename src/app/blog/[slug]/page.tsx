@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Header, Footer, Background3D } from "@/components";
+import { BlogShareBar } from "@/components/BlogShareBar";
+import { BlogLikeComment } from "@/components/BlogLikeComment";
 import { getPostBySlug, getAllSlugs } from "../lib/posts";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 
@@ -222,6 +224,18 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="prose prose-invert max-w-none text-muted">
             {renderBody(post.body)}
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-white/10 space-y-8">
+            <div>
+              <p className="text-sm font-medium text-muted mb-2">Share this article</p>
+              <BlogShareBar
+                url={`${siteUrl}/blog/${slug}`}
+                title={post.title}
+                description={post.excerpt}
+              />
+            </div>
+            <BlogLikeComment slug={slug} />
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/10">

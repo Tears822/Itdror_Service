@@ -20,7 +20,7 @@ export function CTABlock() {
             <span className="gradient-text">Support Your Applications?</span>
           </h2>
           <p className="max-w-2xl mx-auto text-xl text-muted mb-10">
-            Get a free consultation. Same-day response—we&apos;ll discuss your
+            Get a free consultation. Same day response, we&apos;ll discuss your
             project and how our team can help.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
