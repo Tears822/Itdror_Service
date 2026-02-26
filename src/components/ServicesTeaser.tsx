@@ -23,7 +23,6 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/application_support.avif",
     category: "support",
     serviceId: "application-support",
-    price: "From $850/month",
   },
   {
     icon: Code2,
@@ -39,7 +38,6 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/software_development.avif",
     category: "dev",
     serviceId: "software-development",
-    price: "From $3,000 per project",
   },
   {
     icon: Palette,
@@ -55,7 +53,6 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/ui_ux_design.avif",
     category: "dev",
     serviceId: "ui-ux-design",
-    price: "From $2,000 per project",
   },
   {
     icon: Cloud,
@@ -71,7 +68,6 @@ const offeringDetails: ServiceDetail[] = [
     image: "/assets/service2/cloud_devops.avif",
     category: "dev",
     serviceId: "cloud-devops",
-    price: "From $6,000 per project or $1,000/month",
   },
 ];
 
@@ -107,6 +103,9 @@ export function ServicesTeaser() {
           </h2>
           <p className="max-w-2xl mx-auto text-xl text-muted">
             One team: we build your applications and support them after launch.
+          </p>
+          <p className="max-w-2xl mx-auto text-foreground/90 font-medium mt-3">
+            Software development projects start from $3K. Get in touch for a detailed quote.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-8 items-center justify-items-center md:justify-items-stretch section-3d">

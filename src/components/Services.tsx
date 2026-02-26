@@ -93,7 +93,6 @@ function toDetail(item: ServiceItem): ServiceDetail {
     image: item.image,
     category: "dev",
     serviceId: item.id,
-    price: item.price,
   };
 }
 
@@ -112,7 +111,6 @@ const applicationSupportService: ServiceDetail = {
   image: "/assets/service2/application_support.avif",
   category: "support",
   serviceId: "application-support",
-  price: "From $850/month",
 };
 
 const softwareDevelopmentService: ServiceDetail = {
@@ -129,7 +127,6 @@ const softwareDevelopmentService: ServiceDetail = {
   ],
   image: "/assets/service2/software_development.avif",
   category: "dev",
-  price: "From $3000 per project",
 };
 
 const CheckIcon = () => (
@@ -281,9 +278,12 @@ export function Services() {
           <h3 className="text-xl font-semibold text-accent mb-4">
             Software Development by Domain
           </h3>
-          <p className="max-w-2xl text-muted text-sm mb-8">
+          <p className="max-w-2xl text-muted text-sm mb-2">
             Custom web, mobile, AI, and cloud solutions—with modern stacks and
             proven delivery. Filter by category or search below.
+          </p>
+          <p className="max-w-2xl text-foreground/90 font-medium text-sm mb-8">
+            Software development projects start from $3K. Every project is case by case—get in touch for a detailed quote.
           </p>
 
           {/* Search + Category filter */}

@@ -16,8 +16,6 @@ export interface ServiceDetail {
   image: string;
   category?: "it" | "dev" | "support";
   serviceId?: string;
-  /** Display price, e.g. "From $2,500/month" or "From $25,000 per project" */
-  price?: string;
 }
 
 interface ServiceDetailModalProps {
@@ -170,14 +168,6 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                   <p className="text-muted leading-relaxed text-[15px]">{service.description}</p>
                 </section>
 
-                {service.price && (
-                  <section>
-                    <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Price</p>
-                    <p className="text-xl font-semibold text-foreground">{service.price}</p>
-                    <p className="text-xs text-muted mt-1">Final quote based on scope. Contact us for a detailed estimate.</p>
-                  </section>
-                )}
-
                 <section>
                   <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Included features</p>
                   <ul className="space-y-3">
@@ -288,6 +278,10 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                     </div>
                   </section>
                 )}
+
+                <p className="text-sm text-muted">
+                  Software development projects start from $3K. Every project is case by case—get in touch for a detailed quote.
+                </p>
 
                 <div className="pt-2">
                   <button
