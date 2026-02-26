@@ -95,7 +95,7 @@ export function Contact() {
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted">
             Get a free consultation: we&apos;ll discuss your project and how our
-            development and application support team can help. Same-day response.
+            development and application support team can help. Same day response.
           </p>
         </motion.div>
 

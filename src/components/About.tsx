@@ -9,25 +9,25 @@ const features = [
     icon: Headphones,
     title: "Application Support",
     description:
-      "Dedicated support for your applications: troubleshooting, user training, and clear communication between you and the dev team. We assign you an Application Support Specialist so you always have a single point of contact for bugs, questions, and updates—no runaround.",
+      "Dedicated support for your applications: troubleshooting, user training, and clear communication between you and the dev team. We assign you an Application Support Specialist so you always have a single point of contact for bugs, questions, and updates no runaround.",
   },
   {
     icon: Clock,
     title: "Fast Response",
     description:
-      "Same-day response for urgent issues. Your business can't wait, and neither do we. We prioritize critical tickets and keep you informed at every step so downtime stays minimal and you can plan with confidence.",
+      "Same day response for urgent issues. Your business can't wait, and neither do we. We prioritize critical tickets and keep you informed at every step so downtime stays minimal and you can plan with confidence.",
   },
   {
     icon: DollarSign,
     title: "Transparent Pricing",
     description:
-      "Competitive pricing without compromising quality. 1 month free support after launch so you can validate the product in production. No hidden fees—we agree on scope and rates upfront and stick to them.",
+      "Competitive pricing without compromising quality. 1 month free support after launch so you can validate the product in production. No hidden fees we agree on scope and rates upfront and stick to them.",
   },
   {
     icon: FileCheck,
     title: "One Integrated Team",
     description:
-      "Development and application support in one place. No silos—one point of contact for build and support. The same team that builds your app maintains it, so context is never lost and handoffs are seamless.",
+      "Development and application support in one place. No silos one point of contact for build and support. The same team that builds your app maintains it, so context is never lost and handoffs are seamless.",
   },
 ];
 
@@ -36,7 +36,7 @@ const values = [
   "1 month free support after launch",
   "Integrated dev + support team",
   "Remote delivery worldwide",
-  "Same-day response",
+  "Same day response",
   "Transparent pricing",
 ];
 
@@ -122,12 +122,12 @@ export function About() {
             <p className="text-lg text-muted mb-8 leading-relaxed">
               IT Dor Services combines custom software development with dedicated
               application support. We build your applications and stay with you
-              after launch—troubleshooting, training users, and working with
+              after launch troubleshooting, training users, and working with
               developers to fix issues so you get one point of contact, not silos.
             </p>
             <p className="text-muted mb-8 leading-relaxed">
               Software has bugs. We give you an Application Support Specialist
-              who bridges technical teams and end-users, so your business keeps
+              who bridges technical teams and end users, so your business keeps
               running smoothly and your users get the help they need.
             </p>
 

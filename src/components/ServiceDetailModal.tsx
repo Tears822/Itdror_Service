@@ -280,7 +280,7 @@ export function ServiceDetailModal({ isOpen, onClose, service, onContactClick }:
                 )}
 
                 <p className="text-sm text-muted">
-                  Software development projects start from $3K. Every project is case by case—get in touch for a detailed quote.
+                  Software development projects start from $3K. Every project is case by case get in touch for a detailed quote.
                 </p>
 
                 <div className="pt-2">
