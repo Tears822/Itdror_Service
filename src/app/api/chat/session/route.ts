@@ -4,6 +4,7 @@ import {
   getMessages,
 } from "@/lib/chat-store";
 import { triggerNewSession } from "@/lib/pusher-server";
+import { notifyAdminsNewSession } from "@/lib/telegram-notify";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -33,6 +34,9 @@ export async function POST(request: NextRequest) {
         email: session.email,
         createdAt: session.createdAt,
       });
+      notifyAdminsNewSession(session.email, session.id).catch((err) =>
+        console.error("Telegram notify error:", err)
+      );
     }
 
     const messages = getMessages(session.id);

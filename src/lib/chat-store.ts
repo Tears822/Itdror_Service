@@ -1,7 +1,14 @@
 /**
- * In-memory store for chat sessions and messages.
- * Replace with a database (e.g. Prisma) for production persistence.
+ * File-based store for chat sessions and messages.
+ * Uses JSON files: data/chat/index.json (session list) and data/chat/sessions/{sessionId}.json (messages).
  */
+
+import fs from "fs";
+import path from "path";
+
+const CHAT_DIR = path.join(process.cwd(), "data", "chat");
+const SESSIONS_DIR = path.join(CHAT_DIR, "sessions");
+const INDEX_FILE = path.join(CHAT_DIR, "index.json");
 
 export type ChatSession = {
   id: string;
@@ -17,18 +24,69 @@ export type ChatMessage = {
   createdAt: number;
 };
 
-const sessions = new Map<string, ChatSession>();
-const messagesBySession = new Map<string, ChatMessage[]>();
+type IndexData = {
+  sessions: ChatSession[];
+};
+
+type SessionFile = {
+  messages: ChatMessage[];
+};
+
+function ensureDirs() {
+  if (!fs.existsSync(CHAT_DIR)) fs.mkdirSync(CHAT_DIR, { recursive: true });
+  if (!fs.existsSync(SESSIONS_DIR)) fs.mkdirSync(SESSIONS_DIR, { recursive: true });
+}
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
+function readIndex(): IndexData {
+  ensureDirs();
+  if (!fs.existsSync(INDEX_FILE)) {
+    return { sessions: [] };
+  }
+  try {
+    const raw = fs.readFileSync(INDEX_FILE, "utf-8");
+    const data = JSON.parse(raw) as IndexData;
+    return data && Array.isArray(data.sessions) ? data : { sessions: [] };
+  } catch {
+    return { sessions: [] };
+  }
+}
+
+function writeIndex(data: IndexData) {
+  ensureDirs();
+  fs.writeFileSync(INDEX_FILE, JSON.stringify(data, null, 2), "utf-8");
+}
+
+function getSessionFilePath(sessionId: string): string {
+  const safe = sessionId.replace(/[^a-z0-9-]/gi, "-");
+  return path.join(SESSIONS_DIR, `${safe}.json`);
+}
+
+function readSessionFile(sessionId: string): SessionFile {
+  const filePath = getSessionFilePath(sessionId);
+  if (!fs.existsSync(filePath)) return { messages: [] };
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw) as SessionFile;
+    return data && Array.isArray(data.messages) ? data : { messages: [] };
+  } catch {
+    return { messages: [] };
+  }
+}
+
+function writeSessionFile(sessionId: string, data: SessionFile) {
+  ensureDirs();
+  const filePath = getSessionFilePath(sessionId);
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+}
+
 export function createOrGetSession(email: string): ChatSession {
   const normalized = email.trim().toLowerCase();
-  const existing = Array.from(sessions.values()).find(
-    (s) => s.email.toLowerCase() === normalized
-  );
+  const index = readIndex();
+  const existing = index.sessions.find((s) => s.email.toLowerCase() === normalized);
   if (existing) return existing;
 
   const session: ChatSession = {
@@ -36,23 +94,25 @@ export function createOrGetSession(email: string): ChatSession {
     email: email.trim(),
     createdAt: Date.now(),
   };
-  sessions.set(session.id, session);
-  messagesBySession.set(session.id, []);
+  index.sessions.push(session);
+  writeIndex(index);
+  writeSessionFile(session.id, { messages: [] });
   return session;
 }
 
 export function getSession(sessionId: string): ChatSession | undefined {
-  return sessions.get(sessionId);
+  const index = readIndex();
+  return index.sessions.find((s) => s.id === sessionId);
 }
 
 export function getAllSessions(): ChatSession[] {
-  return Array.from(sessions.values()).sort(
-    (a, b) => b.createdAt - a.createdAt
-  );
+  const index = readIndex();
+  return [...index.sessions].sort((a, b) => b.createdAt - a.createdAt);
 }
 
 export function getMessages(sessionId: string): ChatMessage[] {
-  return messagesBySession.get(sessionId) ?? [];
+  const file = readSessionFile(sessionId);
+  return file.messages;
 }
 
 export function addMessage(
@@ -60,7 +120,7 @@ export function addMessage(
   sender: "customer" | "admin",
   content: string
 ): ChatMessage | null {
-  if (!sessions.has(sessionId)) return null;
+  if (!getSession(sessionId)) return null;
   const msg: ChatMessage = {
     id: generateId(),
     sessionId,
@@ -68,7 +128,14 @@ export function addMessage(
     content: content.trim(),
     createdAt: Date.now(),
   };
-  const list = messagesBySession.get(sessionId)!;
-  list.push(msg);
+  const file = readSessionFile(sessionId);
+  file.messages.push(msg);
+  writeSessionFile(sessionId, file);
   return msg;
+}
+
+export function clearMessages(sessionId: string): boolean {
+  if (!getSession(sessionId)) return false;
+  writeSessionFile(sessionId, { messages: [] });
+  return true;
 }

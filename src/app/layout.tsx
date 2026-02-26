@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { JsonLd, LenisProvider, ScrollToTop, ChatProviderWithWidget } from "@/components";
+import { JsonLd, LenisProvider, ScrollToTop, ChatProviderWithWidget, CookieConsent } from "@/components";
 import { QuoteIntentProvider } from "@/contexts/QuoteIntentContext";
 import "./globals.css";
 
@@ -101,6 +101,7 @@ export default function RootLayout({
           <QuoteIntentProvider>{children}</QuoteIntentProvider>
         </LenisProvider>
         </ChatProviderWithWidget>
+        <CookieConsent />
       </body>
     </html>
   );

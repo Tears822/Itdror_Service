@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getMessages, addMessage, getSession } from "@/lib/chat-store";
 import { triggerChatMessage } from "@/lib/pusher-server";
+import { notifyAdminsNewCustomerMessage } from "@/lib/telegram-notify";
 
 export async function GET(request: NextRequest) {
   try {
@@ -75,6 +76,17 @@ export async function POST(request: NextRequest) {
       content: msg.content,
       createdAt: msg.createdAt,
     });
+
+    if (sender === "customer") {
+      const session = getSession(sessionId);
+      if (session) {
+        notifyAdminsNewCustomerMessage(
+          session.email,
+          sessionId,
+          msg.content
+        ).catch((err) => console.error("Telegram notify error:", err));
+      }
+    }
 
     return NextResponse.json({
       id: msg.id,

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Send, MessageCircle } from "lucide-react";
+import { ArrowLeft, Send, MessageCircle, Trash2 } from "lucide-react";
 import Pusher from "pusher-js";
 import { setAdminLastRead } from "@/lib/admin-chat-storage";
 
@@ -23,6 +23,7 @@ export default function AdminConversationPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [clearing, setClearing] = useState(false);
   const [unauth, setUnauth] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
   const pusherRef = useRef<Pusher | null>(null);
@@ -136,6 +137,27 @@ export default function AdminConversationPage() {
     }
   };
 
+  const clearHistory = async () => {
+    if (clearing || !sessionId) return;
+    if (!confirm("Clear all messages in this conversation? This cannot be undone.")) return;
+    setClearing(true);
+    try {
+      const res = await fetch(`/api/chat/sessions/${encodeURIComponent(sessionId)}/messages`, {
+        method: "DELETE",
+      });
+      if (res.status === 401) {
+        router.replace("/admin/chat");
+        return;
+      }
+      if (res.ok) {
+        setMessages([]);
+        setAdminLastRead(sessionId, 0);
+      }
+    } finally {
+      setClearing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -159,6 +181,16 @@ export default function AdminConversationPage() {
           <p className="font-medium truncate">{email || sessionId}</p>
           <p className="text-xs text-muted">Session</p>
         </div>
+        <button
+          type="button"
+          onClick={clearHistory}
+          disabled={clearing || messages.length === 0}
+          className="p-2 rounded-lg hover:bg-red-500/10 text-muted hover:text-red-400 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+          title="Clear chat history"
+          aria-label="Clear chat history"
+        >
+          <Trash2 className="w-5 h-5" />
+        </button>
       </header>
 
       <div

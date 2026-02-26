@@ -27,3 +27,4 @@ export { ChatProviderWithWidget } from "./ChatProviderWithWidget";
 export { ChatWidget } from "./ChatWidget";
 export { LiveChatCard } from "./LiveChatCard";
 export { ChatFloatingButton } from "./ChatFloatingButton";
+export { CookieConsent } from "./CookieConsent";
