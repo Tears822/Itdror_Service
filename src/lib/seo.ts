@@ -4,7 +4,7 @@ export const SITE_URL = "https://itdorservices.com";
 export const SITE_NAME = "IT Dor Services";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/og-image.png`;
 export const DEFAULT_DESCRIPTION =
-  "Custom software development and application support in one team. We build your applications and support them after launch—troubleshooting, user training, and clear client–dev communication. Remote delivery worldwide.";
+  "Custom software development and application support in one team. We build your applications and support them after launch troubleshooting, user training, and clear client dev communication. Remote delivery worldwide.";
 
 const defaultOpenGraph = {
   type: "website" as const,

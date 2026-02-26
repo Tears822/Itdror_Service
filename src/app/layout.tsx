@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | IT Dor Services",
   },
   description:
-    "Custom software development and application support in one team. We build your applications and support them after launch—troubleshooting, user training, and clear client–dev communication. Remote delivery worldwide.",
+    "Custom software development and application support in one team. We build your applications and support them after launch troubleshooting, user training, and clear client dev communication. Remote delivery worldwide.",
   keywords: [
     "application support",
     "software development",

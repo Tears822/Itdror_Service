@@ -128,7 +128,7 @@ We work remotely with clients worldwide. That doesn't mean you get less visibili
 - **Application support included** – After launch, the same team that built the app is there for training, bugs, and questions.
 - **Clear documentation** – So your team (and ours) can work from the same playbook.
 
-If you're considering a remote development and support partner, we'd be glad to talk. Same-day response on consultations get in touch to get started.
+If you're considering a remote development and support partner, we'd be glad to talk. Same day response on consultations get in touch to get started.
     `.trim(),
   },
 ];
