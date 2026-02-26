@@ -357,7 +357,7 @@ export function Services() {
             },
             {
               title: "Fast response",
-              desc: "Same-day response for urgent issues and clear client–dev communication.",
+              desc: "Same day response for urgent issues and clear client dev communication.",
             },
           ].map((benefit) => (
             <CyberBenefitCard

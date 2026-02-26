@@ -23,7 +23,7 @@ const stats = [
     icon: Zap,
     value: 24,
     suffix: "hr",
-    label: "Same-Day Response",
+    label: "Same day response",
     delay: 0.2,
   },
   {

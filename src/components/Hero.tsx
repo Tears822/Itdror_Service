@@ -131,7 +131,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 1 }}
           className="mt-6 text-xs sm:text-sm text-slate-600 sm:text-muted px-2"
         >
-          ✓ Free initial consultation • ✓ Same-day response • ✓ 100% satisfaction guaranteed
+          ✓ Free initial consultation • ✓ Same day response • ✓ 100% satisfaction guaranteed
         </motion.p>
       </div>
     </section>
