@@ -78,7 +78,7 @@ export default function AdminConversationPage() {
     };
   }, [sessionId]);
 
-  // Polling fallback: fetch new messages every 3s (works without Pusher)
+  // Polling fallback: fetch new messages every 8s (works without Pusher)
   useEffect(() => {
     const interval = setInterval(() => {
       fetch(`/api/chat/messages?sessionId=${encodeURIComponent(sessionId)}`)
@@ -92,7 +92,7 @@ export default function AdminConversationPage() {
           });
         })
         .catch(() => {});
-    }, 3000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [sessionId]);
 

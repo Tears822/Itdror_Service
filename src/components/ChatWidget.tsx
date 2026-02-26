@@ -9,6 +9,16 @@ import Pusher from "pusher-js";
 const CHAT_STORAGE_KEY = "itdor_chat_session";
 const CHAT_LAST_READ_KEY = "itdor_chat_last_read";
 
+const CHAT_DEBUG = typeof window !== "undefined" && process.env.NODE_ENV === "development";
+
+function chatClientLog(label: string, ...args: unknown[]) {
+  if (CHAT_DEBUG) console.log("[ChatWidget]", label, ...args);
+}
+
+function chatClientError(label: string, status?: number, body?: unknown) {
+  console.error("[ChatWidget]", label, status != null ? { status, body } : body);
+}
+
 type Message = {
   id: string;
   sender: string;
@@ -91,9 +101,11 @@ export function ChatWidget() {
     setSessionId(stored.sessionId);
     setEmail(stored.email);
     setStep("chat");
+    chatClientLog("Restore: fetching messages", stored.sessionId);
     fetch(`/api/chat/messages?sessionId=${encodeURIComponent(stored.sessionId)}`)
-      .then((res) => {
+      .then(async (res) => {
         if (res.status === 404) {
+          chatClientLog("Restore: session not found (404), clearing storage");
           clearStoredSession();
           setSessionId(null);
           setStep("email");
@@ -101,7 +113,13 @@ export function ChatWidget() {
           setUnreadCount(0);
           return null;
         }
-        return res.ok ? res.json() : { messages: [] };
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          chatClientError("Restore: messages GET failed", res.status, data);
+          return { messages: [] };
+        }
+        chatClientLog("Restore: messages loaded", data.messages?.length ?? 0);
+        return data;
       })
       .then((data) => {
         if (!data) return;
@@ -111,7 +129,10 @@ export function ChatWidget() {
         setLastReadAdminCount(adminCount);
         setUnreadCount(0);
       })
-      .catch(() => setMessages([]));
+      .catch((err) => {
+        chatClientError("Restore: fetch error", undefined, err);
+        setMessages([]);
+      });
   }, [restored, setUnreadCount]);
 
   useEffect(() => {
@@ -151,12 +172,13 @@ export function ChatWidget() {
     };
   }, [sessionId]);
 
-  // Polling: fetch messages every 3s when we have a session (open or closed – for unread badge when closed)
+  // Polling: fetch messages periodically when we have a session (for unread badge when closed; fallback when Pusher not configured)
   useEffect(() => {
     if (!sessionId) return;
+    const POLL_INTERVAL_MS = 8000; // 8s to reduce server load when Pusher is not set
     const poll = () => {
       fetch(`/api/chat/messages?sessionId=${encodeURIComponent(sessionId)}`)
-        .then((res) => {
+        .then(async (res) => {
           if (res.status === 404) {
             clearStoredSession();
             setSessionId(null);
@@ -165,7 +187,12 @@ export function ChatWidget() {
             setUnreadCount(0);
             return null;
           }
-          return res.ok ? res.json() : { messages: [] };
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            chatClientError("Poll: messages GET failed", res.status, data);
+            return null;
+          }
+          return data;
         })
         .then((data) => {
           if (!data) return;
@@ -184,7 +211,7 @@ export function ChatWidget() {
         .catch(() => {});
     };
     poll();
-    const interval = setInterval(poll, 3000);
+    const interval = setInterval(poll, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [sessionId, isOpen, setUnreadCount]);
 
@@ -194,22 +221,26 @@ export function ChatWidget() {
     if (!value) return;
     setError("");
     setLoading(true);
+    chatClientLog("Session: POST /api/chat/session", { email: value });
     try {
       const res = await fetch("/api/chat/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: value }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({ error: "Invalid response" }));
       if (!res.ok) {
-        setError(data.error || "Something went wrong");
+        chatClientError("Session: POST failed", res.status, data);
+        setError(data.errorDetail || data.error || "Something went wrong");
         return;
       }
+      chatClientLog("Session: created", data.sessionId);
       setSessionId(data.sessionId);
       setMessages(data.messages ?? []);
       setStep("chat");
       saveStoredSession(data.sessionId, data.email ?? value);
-    } catch {
+    } catch (err) {
+      chatClientError("Session: fetch error", undefined, err);
       setError("Something went wrong");
     } finally {
       setLoading(false);
@@ -221,6 +252,7 @@ export function ChatWidget() {
     if (!text || !sessionId || sending) return;
     setSending(true);
     setInput("");
+    chatClientLog("Messages: POST /api/chat/messages", { sessionId, contentLength: text.length });
     try {
       const res = await fetch("/api/chat/messages", {
         method: "POST",
@@ -231,6 +263,7 @@ export function ChatWidget() {
           content: text,
         }),
       });
+      const data = await res.json().catch(() => ({}));
       if (res.status === 404) {
         clearStoredSession();
         setSessionId(null);
@@ -241,12 +274,14 @@ export function ChatWidget() {
         return;
       }
       if (!res.ok) {
+        chatClientError("Messages: POST failed", res.status, data);
         setInput(text);
         return;
       }
-      const msg = await res.json();
-      setMessages((prev) => [...prev, msg]);
-    } catch {
+      chatClientLog("Messages: sent", data.id);
+      setMessages((prev) => [...prev, data]);
+    } catch (err) {
+      chatClientError("Messages: fetch error", undefined, err);
       setInput(text);
     } finally {
       setSending(false);

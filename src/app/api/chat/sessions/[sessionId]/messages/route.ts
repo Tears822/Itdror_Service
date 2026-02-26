@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { clearMessages, getSession } from "@/lib/chat-store";
+import { chatLog, chatError, errorPayload } from "@/lib/chat-debug";
 
 const ADMIN_COOKIE = "admin_chat_auth";
 
@@ -9,6 +10,7 @@ export async function DELETE(
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
   try {
+    chatLog("ClearMessages", "DELETE /api/chat/sessions/[sessionId]/messages");
     const cookieStore = await cookies();
     const token = cookieStore.get(ADMIN_COOKIE)?.value;
     if (token !== process.env.ADMIN_CHAT_PASSWORD) {
@@ -25,11 +27,12 @@ export async function DELETE(
     }
 
     clearMessages(sessionId);
+    chatLog("ClearMessages", "DELETE success", { sessionId });
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error("Clear chat messages error:", error);
+    chatError("ClearMessages", "DELETE error", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      errorPayload(error, "Internal server error"),
       { status: 500 }
     );
   }

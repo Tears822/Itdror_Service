@@ -1,10 +1,12 @@
 /**
  * File-based store for chat sessions and messages.
  * Uses JSON files: data/chat/index.json (session list) and data/chat/sessions/{sessionId}.json (messages).
+ * Note: On Vercel/serverless the filesystem is read-only; writes will fail with EROFS. Use a DB or external store for production.
  */
 
 import fs from "fs";
 import path from "path";
+import { chatLog, chatError } from "@/lib/chat-debug";
 
 const CHAT_DIR = path.join(process.cwd(), "data", "chat");
 const SESSIONS_DIR = path.join(CHAT_DIR, "sessions");
@@ -33,8 +35,19 @@ type SessionFile = {
 };
 
 function ensureDirs() {
-  if (!fs.existsSync(CHAT_DIR)) fs.mkdirSync(CHAT_DIR, { recursive: true });
-  if (!fs.existsSync(SESSIONS_DIR)) fs.mkdirSync(SESSIONS_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(CHAT_DIR)) {
+      chatLog("Store", "Creating CHAT_DIR", CHAT_DIR);
+      fs.mkdirSync(CHAT_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SESSIONS_DIR)) {
+      chatLog("Store", "Creating SESSIONS_DIR", SESSIONS_DIR);
+      fs.mkdirSync(SESSIONS_DIR, { recursive: true });
+    }
+  } catch (err) {
+    chatError("Store", "ensureDirs failed", err);
+    throw err;
+  }
 }
 
 function generateId(): string {
@@ -57,7 +70,13 @@ function readIndex(): IndexData {
 
 function writeIndex(data: IndexData) {
   ensureDirs();
-  fs.writeFileSync(INDEX_FILE, JSON.stringify(data, null, 2), "utf-8");
+  try {
+    fs.writeFileSync(INDEX_FILE, JSON.stringify(data, null, 2), "utf-8");
+    chatLog("Store", "writeIndex ok", { sessionCount: data.sessions.length });
+  } catch (err) {
+    chatError("Store", "writeIndex failed", err);
+    throw err;
+  }
 }
 
 function getSessionFilePath(sessionId: string): string {
@@ -80,14 +99,24 @@ function readSessionFile(sessionId: string): SessionFile {
 function writeSessionFile(sessionId: string, data: SessionFile) {
   ensureDirs();
   const filePath = getSessionFilePath(sessionId);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+    chatLog("Store", "writeSessionFile ok", { sessionId, messageCount: data.messages.length });
+  } catch (err) {
+    chatError("Store", "writeSessionFile failed", { sessionId, filePath, err });
+    throw err;
+  }
 }
 
 export function createOrGetSession(email: string): ChatSession {
+  chatLog("Store", "createOrGetSession", { email });
   const normalized = email.trim().toLowerCase();
   const index = readIndex();
   const existing = index.sessions.find((s) => s.email.toLowerCase() === normalized);
-  if (existing) return existing;
+  if (existing) {
+    chatLog("Store", "createOrGetSession: existing session", { sessionId: existing.id });
+    return existing;
+  }
 
   const session: ChatSession = {
     id: generateId(),
@@ -97,6 +126,7 @@ export function createOrGetSession(email: string): ChatSession {
   index.sessions.push(session);
   writeIndex(index);
   writeSessionFile(session.id, { messages: [] });
+  chatLog("Store", "createOrGetSession: new session", { sessionId: session.id });
   return session;
 }
 

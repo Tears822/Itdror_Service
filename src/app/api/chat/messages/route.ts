@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getMessages, addMessage, getSession } from "@/lib/chat-store";
 import { triggerChatMessage } from "@/lib/pusher-server";
 import { notifyAdminsNewCustomerMessage } from "@/lib/telegram-notify";
+import { chatLog, chatError, errorPayload } from "@/lib/chat-debug";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const sessionId = searchParams.get("sessionId");
+    chatLog("Messages", "GET /api/chat/messages", { sessionId });
     if (!sessionId) {
       return NextResponse.json(
         { error: "sessionId is required" },
@@ -14,6 +16,7 @@ export async function GET(request: NextRequest) {
       );
     }
     if (!getSession(sessionId)) {
+      chatLog("Messages", "GET session not found", { sessionId });
       return NextResponse.json(
         { error: "Session not found" },
         { status: 404 }
@@ -21,6 +24,7 @@ export async function GET(request: NextRequest) {
     }
 
     const messages = getMessages(sessionId);
+    chatLog("Messages", "GET success", { sessionId, count: messages.length });
     return NextResponse.json({
       messages: messages.map((m) => ({
         id: m.id,
@@ -30,9 +34,9 @@ export async function GET(request: NextRequest) {
       })),
     });
   } catch (error) {
-    console.error("Chat messages GET error:", error);
+    chatError("Messages", "GET /api/chat/messages error", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      errorPayload(error, "Internal server error"),
       { status: 500 }
     );
   }
@@ -42,6 +46,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { sessionId, sender, content } = body;
+    chatLog("Messages", "POST /api/chat/messages", { sessionId, sender, contentLength: String(content).length });
 
     if (!sessionId || !sender || content === undefined) {
       return NextResponse.json(
@@ -56,6 +61,7 @@ export async function POST(request: NextRequest) {
       );
     }
     if (!getSession(sessionId)) {
+      chatLog("Messages", "POST session not found", { sessionId });
       return NextResponse.json(
         { error: "Session not found" },
         { status: 404 }
@@ -69,6 +75,7 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+    chatLog("Messages", "Message added", { msgId: msg.id, sender: msg.sender });
 
     triggerChatMessage(sessionId, {
       id: msg.id,
@@ -84,10 +91,11 @@ export async function POST(request: NextRequest) {
           session.email,
           sessionId,
           msg.content
-        ).catch((err) => console.error("Telegram notify error:", err));
+        ).catch((err) => chatError("Messages", "Telegram notify error", err));
       }
     }
 
+    chatLog("Messages", "POST /api/chat/messages success", { msgId: msg.id });
     return NextResponse.json({
       id: msg.id,
       sender: msg.sender,
@@ -95,9 +103,9 @@ export async function POST(request: NextRequest) {
       createdAt: msg.createdAt,
     });
   } catch (error) {
-    console.error("Chat messages POST error:", error);
+    chatError("Messages", "POST /api/chat/messages error", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      errorPayload(error, "Internal server error"),
       { status: 500 }
     );
   }
