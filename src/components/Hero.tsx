@@ -8,7 +8,7 @@ import { CheckCircle, MessageCircle, ArrowRight } from "lucide-react";
 const benefits = [
   "Integrated dev + support",
   "1 month free support after launch",
-  "Clear client–dev communication",
+  "Clear client dev communication",
 ];
 
 export function Hero() {
@@ -50,7 +50,7 @@ export function Hero() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
           <span className="text-xs sm:text-sm text-slate-600 sm:text-muted text-center">
-            Serving Clients Worldwide • Remote-First
+            Serving Clients Worldwide • Remote First
           </span>
         </motion.div>
 
