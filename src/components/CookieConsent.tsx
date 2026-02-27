@@ -49,11 +49,11 @@ export function CookieConsent() {
         >
           <div className="flex items-center justify-center gap-3 mb-3">
             <Image
-              src="/assets/favicon.png"
+              src="/assets/logo.png"
               alt=""
-              width={32}
-              height={32}
-              className="shrink-0"
+              width={120}
+              height={34}
+              className="shrink-0 object-contain"
             />
             <h3 className="text-lg font-semibold text-foreground">
               We use cookies
