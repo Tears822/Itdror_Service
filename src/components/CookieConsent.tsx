@@ -47,7 +47,7 @@ export function CookieConsent() {
           aria-label="Cookie consent"
           className="relative z-10 w-full max-w-lg rounded-2xl border border-black/10 bg-white p-6 shadow-xl shadow-black/10"
         >
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center justify-center gap-3 mb-3">
             <Image
               src="/assets/favicon.png"
               alt=""
@@ -75,7 +75,7 @@ export function CookieConsent() {
               Terms of Service
             </Link>
           </p>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               onClick={() => save("declined")}
