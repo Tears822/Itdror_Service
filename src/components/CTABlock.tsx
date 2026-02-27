@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { BOOKING_URL, isExternalBooking } from "@/lib/booking-url";
 
 export function CTABlock() {
   return (
@@ -24,13 +25,25 @@ export function CTABlock() {
             project and how our team can help.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="cta-btn-primary"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Get Your Free Consultation
-            </Link>
+            {isExternalBooking ? (
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-btn-primary"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Get Your Free Consultation
+              </a>
+            ) : (
+              <Link
+                href={BOOKING_URL}
+                className="cta-btn-primary"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Get Your Free Consultation
+              </Link>
+            )}
             <Link
               href="/services"
               className="cta-btn-secondary"
