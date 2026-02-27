@@ -85,14 +85,14 @@ export function Header() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm hover:opacity-95 transition-opacity shadow-sm"
                 >
-                  Get Started
+                  Book a call
                 </a>
               ) : (
                 <Link
                   href={BOOKING_URL}
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm hover:opacity-95 transition-opacity shadow-sm"
                 >
-                  Get Started
+                  Book a call
                 </Link>
               )}
             </div>
@@ -146,7 +146,7 @@ export function Header() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:opacity-95 transition-opacity"
                   >
-                    Get Started
+                    Book a call
                   </a>
                 ) : (
                   <Link
@@ -154,7 +154,7 @@ export function Header() {
                     className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:opacity-95 transition-opacity"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Get Started
+                    Book a call
                   </Link>
                 )}
               </div>
