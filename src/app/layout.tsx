@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { JsonLd, LenisProvider, ScrollToTop, ChatProviderWithWidget, CookieConsent } from "@/components";
+import { JsonLd, LenisProvider, ScrollToTop, TawkToWidgetWrapper, CookieConsent } from "@/components";
 import { QuoteIntentProvider } from "@/contexts/QuoteIntentContext";
 import "./globals.css";
 
@@ -96,11 +96,11 @@ export default function RootLayout({
         <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(20,184,166,0.05),transparent_55%)] pointer-events-none" aria-hidden />
         <JsonLd />
         <ScrollToTop />
-        <ChatProviderWithWidget>
+        <TawkToWidgetWrapper>
           <LenisProvider>
           <QuoteIntentProvider>{children}</QuoteIntentProvider>
         </LenisProvider>
-        </ChatProviderWithWidget>
+        </TawkToWidgetWrapper>
         <CookieConsent />
       </body>
     </html>

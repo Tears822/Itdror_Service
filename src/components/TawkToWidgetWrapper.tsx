@@ -1,10 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { ChatProvider } from "@/contexts/ChatContext";
 import { TawkToWidget } from "./TawkToWidget";
 
-export function ChatProviderWithWidget({
+export function TawkToWidgetWrapper({
   children,
 }: {
   children: React.ReactNode;
@@ -13,9 +12,9 @@ export function ChatProviderWithWidget({
   const isAdmin = pathname?.startsWith("/admin") ?? false;
 
   return (
-    <ChatProvider>
+    <>
       {children}
       {!isAdmin && <TawkToWidget />}
-    </ChatProvider>
+    </>
   );
 }

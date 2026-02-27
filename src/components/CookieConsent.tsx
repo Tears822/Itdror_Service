@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const STORAGE_KEY = "itdor_cookie_consent";
 
@@ -46,9 +47,18 @@ export function CookieConsent() {
           aria-label="Cookie consent"
           className="relative z-10 w-full max-w-lg rounded-2xl border border-black/10 bg-white p-6 shadow-xl shadow-black/10"
         >
-          <h3 className="text-lg font-semibold text-foreground mb-3">
-            We use cookies
-          </h3>
+          <div className="flex items-center gap-3 mb-3">
+            <Image
+              src="/assets/favicon.png"
+              alt=""
+              width={32}
+              height={32}
+              className="shrink-0"
+            />
+            <h3 className="text-lg font-semibold text-foreground">
+              We use cookies
+            </h3>
+          </div>
           <p className="text-sm text-foreground/90 leading-relaxed mb-5">
             We use cookies to improve your experience, analyze traffic, and personalize content. By continuing, you agree to our use of cookies.{" "}
             <Link
