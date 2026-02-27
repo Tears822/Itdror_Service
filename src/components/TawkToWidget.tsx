@@ -2,8 +2,8 @@
 
 import Script from "next/script";
 
-const TAWK_PROPERTY_ID = "69a142ce0f66371c37535508";
-const TAWK_WIDGET_ID = "1jieupu8h";
+const TAWK_PROPERTY_ID = "69a185824afa321c34c796b9";
+const TAWK_WIDGET_ID = "1jiff31vb";
 const TAWK_SRC = `https://embed.tawk.to/${TAWK_PROPERTY_ID}/${TAWK_WIDGET_ID}`;
 
 export function TawkToWidget() {
