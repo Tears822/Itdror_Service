@@ -28,3 +28,4 @@ export { ChatWidget } from "./ChatWidget";
 export { LiveChatCard } from "./LiveChatCard";
 export { ChatFloatingButton } from "./ChatFloatingButton";
 export { CookieConsent } from "./CookieConsent";
+export { TawkToWidget } from "./TawkToWidget";

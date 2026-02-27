@@ -2,8 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { ChatProvider } from "@/contexts/ChatContext";
-import { ChatWidget } from "./ChatWidget";
-import { ChatFloatingButton } from "./ChatFloatingButton";
+import { TawkToWidget } from "./TawkToWidget";
 
 export function ChatProviderWithWidget({
   children,
@@ -16,12 +15,7 @@ export function ChatProviderWithWidget({
   return (
     <ChatProvider>
       {children}
-      {!isAdmin && (
-        <>
-          <ChatFloatingButton />
-          <ChatWidget />
-        </>
-      )}
+      {!isAdmin && <TawkToWidget />}
     </ChatProvider>
   );
 }
