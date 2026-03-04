@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle, MessageCircle, ArrowRight } from "lucide-react";
-import { BOOKING_URL, isExternalBooking } from "@/lib/booking-url";
 
 const benefits = [
   "Integrated dev + support",
@@ -109,25 +108,13 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-5 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto"
         >
-          {isExternalBooking ? (
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-btn-primary w-full sm:w-auto text-center"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Get Your Free Consultation
-            </a>
-          ) : (
-            <Link
-              href={BOOKING_URL}
-              className="cta-btn-primary w-full sm:w-auto text-center"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Get Your Free Consultation
-            </Link>
-          )}
+          <Link
+            href="/contact"
+            className="cta-btn-primary w-full sm:w-auto text-center"
+          >
+            <MessageCircle className="w-5 h-5" />
+            Get Your Free Consultation
+          </Link>
           <Link
             href="/services"
             className="cta-btn-secondary w-full sm:w-auto text-center"
